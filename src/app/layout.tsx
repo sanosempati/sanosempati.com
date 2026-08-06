@@ -1,0 +1,51 @@
+import type { Metadata } from "next";
+import { Bricolage_Grotesque } from "next/font/google";
+import localFont from "next/font/local";
+import "./globals.css";
+import { site } from "@/lib/content";
+
+const untitledSans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/UntitledSansVF-Roman.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/UntitledSansVF-Italic.woff2",
+      weight: "300 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-untitled-sans",
+  display: "swap",
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: site.title,
+  description: site.description,
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    type: "website",
+  },
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="id"
+      className={`${untitledSans.variable} ${bricolage.variable} h-full antialiased`}
+    >
+      <body className="min-h-full font-sans">{children}</body>
+    </html>
+  );
+}

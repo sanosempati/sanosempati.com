@@ -1,0 +1,66 @@
+import type { ReactNode } from "react";
+
+export type SectionTone = "light" | "dark" | "white" | "sky" | "mint";
+
+const tones: Record<SectionTone, string> = {
+  light: "bg-dh-light text-dh-dark",
+  white: "bg-white text-dh-dark",
+  dark: "bg-dh-dark text-white",
+  sky: "bg-dh-sky text-dh-dark",
+  mint: "bg-dh-mint text-dh-dark",
+};
+
+const paperByTone: Record<SectionTone, string> = {
+  light: "paper-texture paper-texture--light",
+  white: "paper-texture paper-texture--light",
+  dark: "paper-texture paper-texture--dark",
+  sky: "paper-texture paper-texture--sky",
+  mint: "paper-texture paper-texture--mint",
+};
+
+type Props = {
+  id?: string;
+  tone?: SectionTone;
+  children: ReactNode;
+  className?: string;
+  innerClassName?: string;
+  /** Gabung dengan section sebelumnya (warna sama) */
+  joinTop?: boolean;
+  /** Gabung dengan section berikutnya (warna sama) */
+  joinBottom?: boolean;
+};
+
+export function SectionShell({
+  id,
+  tone = "white",
+  children,
+  className = "",
+  innerClassName = "",
+  joinTop = false,
+  joinBottom = false,
+}: Props) {
+  const shellJoin = [
+    joinTop ? "section-shell--join-top" : "",
+    joinBottom ? "section-shell--join-bottom" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const panelJoin = [
+    joinTop ? "section-panel--join-top" : "",
+    joinBottom ? "section-panel--join-bottom" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <section id={id} className={`section-shell ${shellJoin} ${className}`}>
+      <div
+        className={`section-panel relative overflow-hidden ${tones[tone]} ${panelJoin} ${innerClassName}`}
+      >
+        <div className={paperByTone[tone]} aria-hidden />
+        <div className="relative z-[1] h-full">{children}</div>
+      </div>
+    </section>
+  );
+}
