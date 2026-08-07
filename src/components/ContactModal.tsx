@@ -135,7 +135,7 @@ export function ContactModal() {
               </label>
 
               <div className="mt-4">
-                <PrimaryButton type="submit" size="lg">
+                <PrimaryButton type="submit" size="lg" variant="primary">
                   Kirim via WhatsApp
                 </PrimaryButton>
               </div>

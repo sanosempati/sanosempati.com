@@ -52,7 +52,9 @@ export function About() {
             {about.body}
           </p>
           <div className="mt-10">
-            <PrimaryButton onClick={() => setOpen(true)}>{about.cta}</PrimaryButton>
+            <PrimaryButton onClick={() => setOpen(true)} variant="primary">
+              {about.cta}
+            </PrimaryButton>
           </div>
         </motion.div>
       </div>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { hero, navLinks } from "@/lib/content";
 import { useContact } from "./ContactProvider";
 import { Logo } from "./Logo";
+import { PrimaryButton } from "./PrimaryButton";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,17 +64,19 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button
+            <PrimaryButton
               type="button"
+              variant="nav"
+              size="sm"
               onClick={() => setContactOpen(true)}
-              className="hidden rounded-full bg-dh-dark px-4 py-2 text-[0.8125rem] font-medium text-white transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-dh-dark/90 active:scale-[0.98] md:inline-flex lg:px-5 lg:py-2.5 lg:text-[0.875rem]"
+              className="hidden md:inline-flex"
             >
               {hero.cta}
-            </button>
+            </PrimaryButton>
 
             <button
               type="button"
-              className="inline-flex size-10 items-center justify-center rounded-full bg-dh-dark/5 text-dh-dark transition-colors hover:bg-dh-dark/10 md:hidden"
+              className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-[#17140d] bg-white text-dh-dark shadow-[5px_5px_0_#17140d] transition-[transform,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#17140d] md:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Buka menu"
             >
@@ -124,19 +127,25 @@ export function Navbar() {
               ))}
             </nav>
 
-            <motion.button
-              type="button"
-              onClick={() => {
-                setMenuOpen(false);
-                setContactOpen(true);
-              }}
-              className="mb-10 w-full rounded-full bg-white py-4 text-base font-medium text-dh-dark transition-transform active:scale-[0.98]"
+            <motion.div
+              className="mb-10"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.35, duration: 0.45 }}
             >
-              {hero.cta}
-            </motion.button>
+              <PrimaryButton
+                type="button"
+                variant="nav"
+                size="lg"
+                className="w-full"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setContactOpen(true);
+                }}
+              >
+                {hero.cta}
+              </PrimaryButton>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

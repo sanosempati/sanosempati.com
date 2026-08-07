@@ -4,31 +4,30 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
-  variant?: "light" | "dark" | "ghost";
-  size?: "md" | "lg";
+  variant?: "primary" | "secondary" | "nav";
+  size?: "sm" | "md" | "lg";
 };
 
 export function PrimaryButton({
   children,
-  variant = "dark",
+  variant = "primary",
   size = "md",
   className = "",
   ...props
 }: Props) {
   const base =
-    "inline-flex items-center justify-center rounded-full font-medium tracking-tight transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dh-dark/30";
+    "btn-memphis inline-flex items-center justify-center rounded-[14px] border-[3px] border-solid border-[#17140d] font-medium tracking-tight transition-[transform,box-shadow] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17140d]/40 focus-visible:ring-offset-2";
 
-  const sizes =
-    size === "lg"
-      ? "px-8 py-3.5 text-[0.9375rem] md:px-10 md:py-4 md:text-base"
-      : "px-6 py-3 text-[0.875rem] md:px-7 md:py-3.5 md:text-[0.9375rem]";
+  const sizes = {
+    sm: "btn-memphis--sm px-4 py-2 text-[0.8125rem]",
+    md: "btn-memphis--md px-6 py-3 text-[0.875rem] md:px-7 md:py-3.5 md:text-[0.9375rem]",
+    lg: "btn-memphis--lg px-8 py-3.5 text-[0.9375rem] md:px-10 md:py-4 md:text-base",
+  }[size];
 
   const variants = {
-    light:
-      "bg-white/70 text-dh-dark backdrop-blur-md shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] hover:bg-white/90",
-    dark: "bg-dh-dark text-white hover:bg-dh-dark/90",
-    ghost:
-      "border border-black/10 bg-white/50 text-dh-dark backdrop-blur-sm hover:bg-white/80",
+    primary: "bg-[#ff5b57] text-white",
+    secondary: "bg-white text-[#17140d]",
+    nav: "bg-[#12b3a4] text-white",
   }[variant];
 
   return (
