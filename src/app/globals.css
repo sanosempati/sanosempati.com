@@ -133,38 +133,6 @@ body {
   padding-right: clamp(1.25rem, 4vw, 5vw);
 }
 
-.hover-fill {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.hover-fill::before {
-  content: "";
-  position: absolute;
-  inset: 0 -10%;
-  background: var(--dh-dark);
-  transform: translateY(110%);
-  transition: transform 0.55s var(--ease-smooth);
-  z-index: 0;
-}
-
-.hover-fill:hover::before,
-.hover-fill:focus-visible::before {
-  transform: translateY(0);
-}
-
-.hover-fill > * {
-  position: relative;
-  z-index: 1;
-  transition: color 0.45s var(--ease-smooth);
-}
-
-.hover-fill:hover > *,
-.hover-fill:focus-visible > * {
-  color: var(--dh-white);
-}
-
 .accordion-content {
   display: grid;
   grid-template-rows: 0fr;
@@ -186,4 +154,182 @@ html.lenis body {
 
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
+}
+
+/* —— Memphis decorative layer (CSS-only motion) —— */
+.memphis-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.memphis-shape {
+  position: absolute;
+  display: block;
+  will-change: transform;
+  opacity: 0.9;
+}
+
+.memphis-shape--triangle {
+  top: 12%;
+  left: 4%;
+  width: clamp(48px, 6vw, 80px);
+  height: auto;
+}
+
+.memphis-shape--quarter-arc {
+  top: 8%;
+  right: 6%;
+  width: clamp(56px, 7vw, 90px);
+  height: auto;
+  transform-origin: top center;
+}
+
+.memphis-shape--dotted-circle {
+  top: 42%;
+  left: 2%;
+  width: clamp(52px, 6.5vw, 88px);
+  height: auto;
+}
+
+.memphis-shape--plus {
+  top: 28%;
+  right: 3%;
+  width: clamp(44px, 5.5vw, 72px);
+  height: auto;
+}
+
+.memphis-shape--squiggle {
+  bottom: 22%;
+  left: 8%;
+  width: clamp(90px, 11vw, 140px);
+  height: auto;
+}
+
+.memphis-shape--half-circle {
+  bottom: 14%;
+  right: 8%;
+  width: clamp(64px, 8vw, 100px);
+  height: auto;
+  transform-origin: top center;
+}
+
+.memphis-shape--zigzag {
+  top: 58%;
+  right: 12%;
+  width: clamp(80px, 9vw, 120px);
+  height: auto;
+}
+
+.memphis-shape--striped-circle {
+  bottom: 8%;
+  left: 42%;
+  width: clamp(52px, 6vw, 84px);
+  height: auto;
+}
+
+@keyframes memphis-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(8deg);
+  }
+}
+
+@keyframes memphis-drift-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(4deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-5deg);
+  }
+}
+
+@keyframes memphis-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes memphis-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes memphis-sway {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+.memphis-anim--drift {
+  animation: memphis-drift 9s ease-in-out infinite;
+}
+
+.memphis-anim--drift-slow {
+  animation: memphis-drift-slow 12s ease-in-out infinite;
+}
+
+.memphis-anim--spin {
+  animation: memphis-spin 26s linear infinite;
+}
+
+.memphis-anim--bob {
+  animation: memphis-bob 5.5s ease-in-out infinite;
+}
+
+.memphis-anim--sway {
+  transform-origin: top center;
+  animation: memphis-sway 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memphis-anim--drift,
+  .memphis-anim--drift-slow,
+  .memphis-anim--spin,
+  .memphis-anim--bob,
+  .memphis-anim--sway {
+    animation: none;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* —— Memphis hard-shadow buttons —— */
+.btn-memphis {
+  box-shadow: 5px 5px 0 #17140d;
+}
+
+.btn-memphis--lg {
+  box-shadow: 8px 8px 0 #17140d;
+}
+
+.btn-memphis:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 #17140d;
+}
+
+.btn-memphis:active {
+  transform: translate(4px, 4px);
+  box-shadow: 1px 1px 0 #17140d;
 }

@@ -19,7 +19,7 @@ export function Footer() {
         <p className="font-display max-w-xl text-[clamp(1.5rem,2.5vw,2.5rem)] font-medium leading-[1.3] tracking-tight text-white">
           {contact.footerCta}
         </p>
-        <PrimaryButton variant="light" size="lg" onClick={() => setOpen(true)}>
+        <PrimaryButton variant="secondary" size="lg" onClick={() => setOpen(true)}>
           Mulai proyek
         </PrimaryButton>
       </div>

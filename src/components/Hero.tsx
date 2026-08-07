@@ -5,6 +5,7 @@ import { GlobeHemisphereEast } from "@phosphor-icons/react";
 import { hero, site } from "@/lib/content";
 import { useContact } from "./ContactProvider";
 import { PrimaryButton } from "./PrimaryButton";
+import { RecedingHeroText } from "./RecedingHeroText";
 import { SectionShell } from "./SectionShell";
 
 export function Hero() {
@@ -17,16 +18,7 @@ export function Hero() {
       innerClassName="flex min-h-[calc(100dvh-1rem)] flex-col justify-end section-pad pb-[8vw] pt-28 md:min-h-[calc(100dvh-1.25rem)] md:pb-[5vw]"
     >
       <div className="relative z-[1] flex w-full flex-col">
-        <motion.h1
-          className="font-display max-w-[14ch] text-[clamp(2.5rem,7.5vw,6.5rem)] font-medium leading-[1.02] tracking-[-0.03em] text-dh-dark text-balance md:max-w-[16ch]"
-          initial={{ y: 48, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {hero.line1}
-          <br />
-          {hero.line2}
-        </motion.h1>
+        <RecedingHeroText line1={hero.line1} line2={hero.line2} />
 
         <motion.div
           className="mt-10 flex items-center justify-end gap-2 text-dh-dark md:mt-6"
@@ -51,7 +43,7 @@ export function Hero() {
           </p>
           <PrimaryButton
             size="lg"
-            variant="dark"
+            variant="primary"
             onClick={() => setOpen(true)}
             className="self-start md:self-auto"
           >

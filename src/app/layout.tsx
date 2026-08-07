@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { MemphisShapes } from "@/components/MemphisShapes";
 import { site } from "@/lib/content";
 
 const untitledSans = localFont({
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="id"
       className={`${untitledSans.variable} ${bricolage.variable} h-full antialiased`}
     >
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full overflow-x-hidden font-sans">
+        <MemphisShapes />
+        {children}
+      </body>
     </html>
   );
 }
