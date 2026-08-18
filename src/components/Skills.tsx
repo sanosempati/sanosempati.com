@@ -12,7 +12,7 @@ type SkillView = "graph" | "list";
 
 function SkillsList() {
   return (
-    <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 md:gap-12">
       {skills.map((group, index) => (
         <motion.article
           key={group.group}
@@ -27,6 +27,9 @@ function SkillsList() {
           <h3 className="font-display text-[clamp(1.15rem,1.4vw,1.35rem)] font-medium tracking-tight text-dh-dark">
             {group.group}
           </h3>
+          <p className="mt-2 text-sm font-medium leading-relaxed text-dh-medium md:text-[0.9375rem]">
+            {group.summary}
+          </p>
           <ul className="mt-4 divide-y divide-dh-dark/15 border-t border-dh-dark/15">
             {group.items.map((item) => (
               <li
@@ -59,7 +62,7 @@ function ViewToggle({
     <div
       className="inline-flex rounded-[14px] border-[3px] border-[#17140d] bg-white p-1 shadow-[5px_5px_0_#17140d]"
       role="tablist"
-      aria-label="Tampilan skill"
+      aria-label="Skills view"
     >
       {options.map((option) => {
         const active = view === option.id;
@@ -101,8 +104,8 @@ export function Skills() {
           </h2>
           <p className="mt-3 max-w-[52ch] text-sm font-medium text-dh-medium md:text-base">
             {view === "graph"
-              ? "Seret node untuk merapikan peta. Hover atau klik untuk melihat hubungan."
-              : "Daftar sederhana per kelompok skill."}
+              ? skillsIntro.graphHint
+              : skillsIntro.listHint}
           </p>
         </div>
         <ViewToggle view={view} onChange={setView} />

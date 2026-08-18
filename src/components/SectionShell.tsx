@@ -32,6 +32,8 @@ type Props = {
   joinBottom?: boolean;
   /** Matikan paper texture (untuk media/illustration) */
   paper?: boolean;
+  /** Full-bleed: tanpa padding shell & tanpa radius panel */
+  flush?: boolean;
 };
 
 export function SectionShell({
@@ -43,8 +45,10 @@ export function SectionShell({
   joinTop = false,
   joinBottom = false,
   paper = true,
+  flush = false,
 }: Props) {
   const shellJoin = [
+    flush ? "section-shell--flush" : "",
     joinTop ? "section-shell--join-top" : "",
     joinBottom ? "section-shell--join-bottom" : "",
   ]
@@ -52,6 +56,7 @@ export function SectionShell({
     .join(" ");
 
   const panelJoin = [
+    flush ? "section-panel--flush" : "",
     joinTop ? "section-panel--join-top" : "",
     joinBottom ? "section-panel--join-bottom" : "",
   ]

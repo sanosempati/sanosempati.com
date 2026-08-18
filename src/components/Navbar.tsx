@@ -3,19 +3,38 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 import { gsap } from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { hero, navLinks } from "@/lib/content";
-import { useContact } from "./ContactProvider";
+import { openWhatsApp } from "@/lib/whatsapp";
 import { Logo } from "./Logo";
 import { PrimaryButton } from "./PrimaryButton";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { setOpen: setContactOpen } = useContact();
+  const [activeSection, setActiveSection] = useState("");
 
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const tlRefs = useRef<Array<gsap.core.Timeline | null>>([]);
   const activeTweenRefs = useRef<Array<gsap.core.Tween | null>>([]);
+  const activeSectionRef = useRef(activeSection);
+
+  activeSectionRef.current = activeSection;
+
+  const syncPillStates = useCallback(() => {
+    navLinks.forEach((link, index) => {
+      const tl = tlRefs.current[index];
+      if (!tl) return;
+
+      activeTweenRefs.current[index]?.kill();
+      activeTweenRefs.current[index] = null;
+
+      if (activeSectionRef.current === link.href) {
+        tl.progress(1);
+      } else {
+        tl.progress(0);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -23,6 +42,38 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    const sectionIds = navLinks.map((link) => link.href.slice(1));
+
+    const updateActiveSection = () => {
+      const offset = 140;
+      let next = "";
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= offset) {
+          next = `#${id}`;
+        }
+      }
+
+      if (window.scrollY < 160) {
+        next = "";
+      }
+
+      setActiveSection(next);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, []);
 
   useEffect(() => {
     const ease = "power3.out";
@@ -55,8 +106,10 @@ export function Navbar() {
         const label = pill.querySelector<HTMLElement>(".pill-label");
         const hoverLabel = pill.querySelector<HTMLElement>(".pill-label-hover");
 
-        if (label) gsap.set(label, { y: 0 });
-        if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 });
+        if (label) gsap.set(label, { y: 0, opacity: 1 });
+        if (hoverLabel) {
+          gsap.set(hoverLabel, { y: Math.ceil(h + 20), opacity: 0 });
+        }
 
         tlRefs.current[index]?.kill();
         const tl = gsap.timeline({ paused: true });
@@ -76,13 +129,12 @@ export function Navbar() {
         if (label) {
           tl.to(
             label,
-            { y: -(h + 8), duration: 0.6, ease, overwrite: "auto" },
+            { y: -(h + 8), opacity: 0, duration: 0.6, ease, overwrite: "auto" },
             0,
           );
         }
 
         if (hoverLabel) {
-          gsap.set(hoverLabel, { y: Math.ceil(h + 20), opacity: 0 });
           tl.to(
             hoverLabel,
             { y: 0, opacity: 1, duration: 0.6, ease, overwrite: "auto" },
@@ -92,6 +144,8 @@ export function Navbar() {
 
         tlRefs.current[index] = tl;
       });
+
+      syncPillStates();
     };
 
     layout();
@@ -101,9 +155,14 @@ export function Navbar() {
     }
 
     return () => window.removeEventListener("resize", layout);
-  }, []);
+  }, [syncPillStates]);
 
-  const handleEnter = (i: number) => {
+  useEffect(() => {
+    syncPillStates();
+  }, [activeSection, syncPillStates]);
+
+  const handleEnter = (i: number, href: string) => {
+    if (activeSectionRef.current === href) return;
     const tl = tlRefs.current[i];
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
@@ -114,7 +173,8 @@ export function Navbar() {
     });
   };
 
-  const handleLeave = (i: number) => {
+  const handleLeave = (i: number, href: string) => {
+    if (activeSectionRef.current === href) return;
     const tl = tlRefs.current[i];
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
@@ -127,16 +187,14 @@ export function Navbar() {
 
   const handleNav = (href: string) => {
     setMenuOpen(false);
-    if (href === "#kontak") {
-      setContactOpen(true);
-      return;
-    }
+    setActiveSection(href);
     const el = document.querySelector(href);
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollTop = () => {
     setMenuOpen(false);
+    setActiveSection("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -151,41 +209,46 @@ export function Navbar() {
               scrollTop();
             }}
             className="shrink-0 pl-1.5"
-            aria-label="Sano Sempati — beranda"
+            aria-label="Sano Sempati — home"
           >
             <Logo />
           </a>
 
           <nav className="hidden items-center gap-0.5 lg:flex">
-            {navLinks.map((link, i) => (
-              <button
-                key={link.href}
-                type="button"
-                onClick={() => handleNav(link.href)}
-                onMouseEnter={() => handleEnter(i)}
-                onMouseLeave={() => handleLeave(i)}
-                className="relative inline-flex h-9 items-center justify-center overflow-hidden rounded-full px-3.5 text-[0.875rem] font-medium tracking-tight text-dh-dark/80 lg:px-4"
-              >
-                <span
-                  ref={(el) => {
-                    circleRefs.current[i] = el;
-                  }}
-                  className="pointer-events-none absolute bottom-0 left-1/2 z-[1] block rounded-full bg-dh-dark"
-                  aria-hidden
-                />
-                <span className="relative z-[2] inline-block overflow-hidden leading-none">
-                  <span className="pill-label relative z-[2] inline-block">
-                    {link.label}
-                  </span>
+            {navLinks.map((link, i) => {
+              const isActive = activeSection === link.href;
+
+              return (
+                <button
+                  key={link.href}
+                  type="button"
+                  onClick={() => handleNav(link.href)}
+                  onMouseEnter={() => handleEnter(i, link.href)}
+                  onMouseLeave={() => handleLeave(i, link.href)}
+                  aria-current={isActive ? "page" : undefined}
+                  className="relative inline-flex h-9 items-center justify-center overflow-hidden rounded-full px-3.5 text-[0.875rem] font-medium tracking-tight text-dh-dark/80 lg:px-4"
+                >
                   <span
-                    className="pill-label-hover absolute top-0 left-0 z-[3] inline-block w-full text-center text-white"
+                    ref={(el) => {
+                      circleRefs.current[i] = el;
+                    }}
+                    className="pointer-events-none absolute bottom-0 left-1/2 z-[1] block rounded-full bg-dh-dark"
                     aria-hidden
-                  >
-                    {link.label}
+                  />
+                  <span className="relative z-[2] inline-block overflow-hidden leading-none">
+                    <span className="pill-label relative z-[2] inline-block">
+                      {link.label}
+                    </span>
+                    <span
+                      className="pill-label-hover pointer-events-none absolute top-0 left-0 z-[3] inline-block w-full text-center text-white"
+                      aria-hidden
+                    >
+                      {link.label}
+                    </span>
                   </span>
-                </span>
-              </button>
-            ))}
+                </button>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -193,7 +256,7 @@ export function Navbar() {
               type="button"
               variant="nav"
               size="sm"
-              onClick={() => setContactOpen(true)}
+              onClick={() => openWhatsApp()}
               className="hidden lg:inline-flex"
             >
               {hero.cta}
@@ -203,7 +266,7 @@ export function Navbar() {
               type="button"
               className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-[#17140d] bg-white text-dh-dark shadow-[5px_5px_0_#17140d] transition-[transform,box-shadow] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#17140d] lg:hidden"
               onClick={() => setMenuOpen(true)}
-              aria-label="Buka menu"
+              aria-label="Open menu"
             >
               <List size={20} weight="bold" />
             </button>
@@ -226,30 +289,37 @@ export function Navbar() {
                 type="button"
                 className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white"
                 onClick={() => setMenuOpen(false)}
-                aria-label="Tutup menu"
+                aria-label="Close menu"
               >
                 <X size={18} weight="bold" />
               </button>
             </div>
 
             <nav className="flex flex-1 flex-col justify-center gap-2">
-              {navLinks.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  type="button"
-                  onClick={() => handleNav(link.href)}
-                  className="font-display text-left text-[clamp(2.5rem,11vw,4rem)] font-medium leading-[1.1] tracking-tight text-white"
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{
-                    delay: 0.08 + i * 0.06,
-                    duration: 0.55,
-                    ease: [0.32, 0.72, 0, 1],
-                  }}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
+              {navLinks.map((link, i) => {
+                const isActive = activeSection === link.href;
+
+                return (
+                  <motion.button
+                    key={link.href}
+                    type="button"
+                    onClick={() => handleNav(link.href)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`font-display text-left text-[clamp(2.5rem,11vw,4rem)] font-medium leading-[1.1] tracking-tight transition-opacity ${
+                      isActive ? "text-white" : "text-white/45"
+                    }`}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{
+                      delay: 0.08 + i * 0.06,
+                      duration: 0.55,
+                      ease: [0.32, 0.72, 0, 1],
+                    }}
+                  >
+                    {link.label}
+                  </motion.button>
+                );
+              })}
             </nav>
 
             <motion.div
@@ -265,7 +335,7 @@ export function Navbar() {
                 className="w-full"
                 onClick={() => {
                   setMenuOpen(false);
-                  setContactOpen(true);
+                  openWhatsApp();
                 }}
               >
                 {hero.cta}

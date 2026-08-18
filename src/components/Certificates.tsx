@@ -35,7 +35,7 @@ export function Certificates() {
       <div className="mt-10 md:mt-14">
         {certificates.map((item, index) => {
           const number = String(index + 1).padStart(2, "0");
-          const meta = [item.issuer, item.year].filter(Boolean).join(" · ");
+          const meta = [item.issuer, item.issueDate].filter(Boolean).join(" · ");
           const className =
             "group grid grid-cols-[auto_1fr_auto] items-start gap-4 border-t border-dh-dark/15 py-7 md:gap-8 md:py-9";
 
@@ -51,8 +51,25 @@ export function Certificates() {
                 <h3 className="font-display mt-2 text-[clamp(1.15rem,1.6vw,1.5rem)] font-medium leading-[1.25] tracking-tight text-dh-dark transition-colors group-hover:text-dh-dark/70">
                   {item.title}
                 </h3>
+                {item.description ? (
+                  <p className="mt-3 max-w-[62ch] text-[0.9375rem] font-medium leading-relaxed text-dh-medium md:text-base">
+                    {item.description}
+                  </p>
+                ) : null}
+                {item.skills.length > 0 ? (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {item.skills.map((skill) => (
+                      <li
+                        key={skill}
+                        className="rounded-full border border-dh-dark/15 bg-white px-3 py-1 text-xs font-medium text-dh-dark"
+                      >
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
-              {item.url ? (
+              {item.credentialUrl ? (
                 <ArrowIcon className="mt-1 shrink-0 text-dh-dark transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               ) : (
                 <span className="mt-1 w-[22px] shrink-0" aria-hidden />
@@ -62,7 +79,7 @@ export function Certificates() {
 
           return (
             <motion.div
-              key={`${item.title}-${item.year}`}
+              key={`${item.title}-${item.issueDate}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-8%" }}
@@ -72,12 +89,13 @@ export function Certificates() {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              {item.url ? (
+              {item.credentialUrl ? (
                 <a
-                  href={item.url}
+                  href={item.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={className}
+                  aria-label={`View certificate ${item.title}`}
                 >
                   {body}
                 </a>

@@ -120,7 +120,7 @@ export function ProjectLightbox({
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-white bg-transparent text-white"
             onClick={() => zoomBy(-0.4)}
-            aria-label="Perkecil"
+            aria-label="Zoom out"
           >
             <MagnifyingGlassMinus size={18} weight="bold" />
           </button>
@@ -128,7 +128,7 @@ export function ProjectLightbox({
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-white bg-transparent text-white"
             onClick={() => zoomBy(0.4)}
-            aria-label="Perbesar"
+            aria-label="Zoom in"
           >
             <MagnifyingGlassPlus size={18} weight="bold" />
           </button>
@@ -136,7 +136,7 @@ export function ProjectLightbox({
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-white bg-white text-dh-dark"
             onClick={onClose}
-            aria-label="Tutup"
+            aria-label="Close"
           >
             <X size={18} weight="bold" />
           </button>

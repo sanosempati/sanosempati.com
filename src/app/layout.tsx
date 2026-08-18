@@ -39,14 +39,14 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="id"
+      lang="en"
       className={`${untitledSans.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="min-h-full overflow-x-hidden font-sans">

@@ -115,13 +115,25 @@ body {
   padding-bottom: 0;
 }
 
+.section-shell--flush {
+  padding: 0;
+}
+
 .section-panel {
   border-radius: 1.5rem;
+}
+
+.section-panel--flush {
+  border-radius: 0;
 }
 
 @media (min-width: 768px) {
   .section-panel {
     border-radius: 2rem;
+  }
+
+  .section-panel--flush {
+    border-radius: 0;
   }
 }
 

@@ -1,13 +1,11 @@
 "use client";
 
 import { contact, hero, site } from "@/lib/content";
+import { openWhatsApp } from "@/lib/whatsapp";
 import { PrimaryButton } from "./PrimaryButton";
 import { SectionShell } from "./SectionShell";
-import { useContact } from "./ContactProvider";
 
 export function Footer() {
-  const { setOpen } = useContact();
-
   return (
     <SectionShell
       id="kontak"
@@ -18,7 +16,7 @@ export function Footer() {
         <p className="font-display max-w-xl text-[clamp(1.5rem,2.5vw,2.5rem)] font-medium leading-[1.3] tracking-tight text-white">
           {contact.footerCta}
         </p>
-        <PrimaryButton variant="secondary" size="lg" onClick={() => setOpen(true)}>
+        <PrimaryButton variant="secondary" size="lg" onClick={() => openWhatsApp()}>
           {hero.cta}
         </PrimaryButton>
       </div>
@@ -27,7 +25,7 @@ export function Footer() {
 
       <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8 md:py-14">
         <div>
-          <p className="mb-2 text-sm font-medium text-dh-soft">Telepon</p>
+          <p className="mb-2 text-sm font-medium text-dh-soft">Phone</p>
           <a
             href={`tel:${site.phone.replace(/\s/g, "")}`}
             className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
@@ -45,7 +43,7 @@ export function Footer() {
           </a>
         </div>
         <div>
-          <p className="mb-2 text-sm font-medium text-dh-soft">Sosial</p>
+          <p className="mb-2 text-sm font-medium text-dh-soft">Social</p>
           <div className="flex flex-col gap-1.5">
             <a
               href={site.instagram}

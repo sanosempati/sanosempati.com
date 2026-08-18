@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { experience, experienceIntro } from "@/lib/content";
+import { CompanyBadge } from "./CompanyBadge";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
@@ -35,12 +36,23 @@ export function Experience() {
               {item.period}
             </p>
             <div>
-              <h3 className="font-display text-[clamp(1.15rem,1.6vw,1.5rem)] font-medium leading-[1.25] tracking-tight text-dh-dark">
-                {item.role}
-              </h3>
-              <p className="mt-1 text-[0.9375rem] font-medium text-dh-medium md:text-base">
-                {item.org}
-              </p>
+              <div className="flex items-start gap-3">
+                <CompanyBadge
+                  label={item.org}
+                  domain={item.domain}
+                  badge={item.badge}
+                  size="md"
+                  className="mt-0.5"
+                />
+                <div className="min-w-0">
+                  <h3 className="font-display text-[clamp(1.15rem,1.6vw,1.5rem)] font-medium leading-[1.25] tracking-tight text-dh-dark">
+                    {item.role}
+                  </h3>
+                  <p className="mt-1 text-[0.9375rem] font-medium text-dh-medium md:text-base">
+                    {item.org}
+                  </p>
+                </div>
+              </div>
               <p className="mt-3 max-w-[62ch] text-[0.9375rem] font-medium leading-relaxed text-dh-medium md:text-base">
                 {item.summary}
               </p>

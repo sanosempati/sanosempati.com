@@ -1,80 +1,162 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { projects } from "@/lib/content";
 import { ProjectLightboxHost } from "./ProjectLightbox";
+import { CompanyBadge } from "./CompanyBadge";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
+const PAGE_SIZE = 6;
+
 export function Projects() {
+  const [page, setPage] = useState(0);
   const [active, setActive] = useState<(typeof projects)[number] | null>(null);
+
+  const totalPages = Math.ceil(projects.length / PAGE_SIZE);
+  const visible = useMemo(
+    () => projects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
+    [page],
+  );
+
+  const goToPage = (next: number) => {
+    setPage(Math.max(0, Math.min(totalPages - 1, next)));
+    setActive(null);
+  };
 
   return (
     <SectionShell
       id="proyek"
       tone="white"
+      joinBottom
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>proyek</SectionLabel>
+      <SectionLabel>projects</SectionLabel>
 
-      <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20">
-        {projects.map((project, index) => (
-          <motion.article
-            key={`${project.title}-${project.year}`}
-            className="group"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-8%" }}
-            transition={{
-              duration: 0.7,
-              delay: (index % 2) * 0.08,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={page}
+          className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {visible.map((project, index) => (
+            <motion.article
+              key={`${project.title}-${project.year}`}
+              className="group"
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.55,
+                delay: index * 0.05,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setActive(project)}
+                className="w-full cursor-pointer text-left"
+                aria-label={`Enlarge image ${project.title}`}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl border-[3px] border-[#17140d] bg-[#f8f7f5] shadow-[6px_6px_0_#17140d] transition-[transform,box-shadow] duration-150 group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-[4px_4px_0_#17140d]">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-contain p-3 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
+                    sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
+                  />
+                </div>
+              </button>
+              <div className="mt-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-start gap-2.5">
+                    <CompanyBadge
+                      label={project.title}
+                      domain={project.domain}
+                      badge={project.badge}
+                    />
+                    <h3 className="font-display text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-snug tracking-tight text-dh-dark">
+                      {project.title}
+                    </h3>
+                  </div>
+                  <span className="shrink-0 pt-0.5 text-sm font-medium text-dh-medium">
+                    {project.year}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-dh-medium md:text-[0.9375rem]">
+                  {project.subtitle}
+                </p>
+                {project.url ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex text-sm font-medium text-dh-dark underline decoration-dh-dark/30 underline-offset-4 transition-colors hover:text-dh-medium hover:decoration-dh-medium"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    Link
+                  </a>
+                ) : null}
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      {totalPages > 1 ? (
+        <nav
+          className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-dh-dark/15 pt-8"
+          aria-label="Projects pagination"
+        >
+          <p className="text-sm font-medium text-dh-medium">
+            Page {page + 1} of {totalPages}
+          </p>
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setActive(project)}
-              className="w-full cursor-pointer text-left"
-              aria-label={`Perbesar gambar ${project.title}`}
+              onClick={() => goToPage(page - 1)}
+              disabled={page === 0}
+              aria-label="Previous page"
+              className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-[#17140d] bg-white text-dh-dark shadow-[5px_5px_0_#17140d] transition-[transform,box-shadow,opacity] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#17140d] disabled:cursor-not-allowed disabled:opacity-35 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border-[3px] border-[#17140d] bg-[#f8f7f5] shadow-[6px_6px_0_#17140d]">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-contain p-3 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
-                  sizes="(max-width:768px) 100vw, 45vw"
-                />
-              </div>
+              <CaretLeft size={18} weight="bold" />
             </button>
-            <div className="mt-5">
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-display text-[clamp(1.125rem,1.35vw,1.375rem)] font-medium leading-snug tracking-tight text-dh-dark">
-                  {project.title}
-                </h3>
-                <span className="shrink-0 text-sm font-medium text-dh-medium">
-                  {project.year}
-                </span>
-              </div>
-              <p className="mt-1 text-[clamp(0.9375rem,1.05vw,1.0625rem)] font-medium text-dh-medium">
-                {project.subtitle}
-              </p>
-              {project.url ? (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex text-sm font-medium text-dh-dark underline decoration-dh-dark/30 underline-offset-4 transition-colors hover:text-dh-medium hover:decoration-dh-medium"
+            <div className="flex items-center gap-1.5">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => goToPage(i)}
+                  aria-label={`Go to page ${i + 1}`}
+                  aria-current={page === i ? "page" : undefined}
+                  className={`inline-flex min-w-10 items-center justify-center rounded-[14px] border-[3px] border-[#17140d] px-3 py-2 text-sm font-medium tracking-tight transition-[transform,box-shadow,background-color,color] duration-150 ${
+                    page === i
+                      ? "bg-[#17140d] text-white shadow-[5px_5px_0_#17140d]"
+                      : "bg-white text-dh-dark shadow-[5px_5px_0_#17140d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#17140d]"
+                  }`}
                 >
-                  Link
-                </a>
-              ) : null}
+                  {i + 1}
+                </button>
+              ))}
             </div>
-          </motion.article>
-        ))}
-      </div>
+            <button
+              type="button"
+              onClick={() => goToPage(page + 1)}
+              disabled={page >= totalPages - 1}
+              aria-label="Next page"
+              className="inline-flex size-10 items-center justify-center rounded-[14px] border-[3px] border-[#17140d] bg-white text-dh-dark shadow-[5px_5px_0_#17140d] transition-[transform,box-shadow,opacity] duration-150 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[3px_3px_0_#17140d] disabled:cursor-not-allowed disabled:opacity-35 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
+            >
+              <CaretRight size={18} weight="bold" />
+            </button>
+          </div>
+        </nav>
+      ) : null}
 
       <ProjectLightboxHost project={active} onClose={() => setActive(null)} />
     </SectionShell>
