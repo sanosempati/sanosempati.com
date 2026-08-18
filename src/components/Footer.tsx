@@ -1,6 +1,6 @@
 "use client";
 
-import { contact, site } from "@/lib/content";
+import { contact, hero, site } from "@/lib/content";
 import { PrimaryButton } from "./PrimaryButton";
 import { SectionShell } from "./SectionShell";
 import { useContact } from "./ContactProvider";
@@ -20,7 +20,7 @@ export function Footer() {
           {contact.footerCta}
         </p>
         <PrimaryButton variant="secondary" size="lg" onClick={() => setOpen(true)}>
-          Mulai proyek
+          {hero.cta}
         </PrimaryButton>
       </div>
 
@@ -46,23 +46,18 @@ export function Footer() {
           </a>
         </div>
         <div className="md:text-right">
-          <p className="mb-2 text-sm font-medium text-dh-soft">
+          <p className="mb-2 text-sm font-medium text-dh-soft">LinkedIn</p>
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
+          >
+            /in/sanosempati
+          </a>
+          <p className="mt-4 text-sm font-medium text-dh-soft">
             &copy; {site.year}
           </p>
-          <div className="flex gap-5 md:justify-end">
-            <a
-              href="#"
-              className="text-base font-medium text-white transition-opacity hover:opacity-60"
-            >
-              Impressum
-            </a>
-            <a
-              href="#"
-              className="text-base font-medium text-white transition-opacity hover:opacity-60"
-            >
-              Privasi
-            </a>
-          </div>
         </div>
       </div>
 

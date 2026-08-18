@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { useState } from "react";
-import { testimonials } from "@/lib/content";
+import { testimonials, testimonialsLabel } from "@/lib/content";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
@@ -21,7 +21,7 @@ export function Testimonials() {
       tone="mint"
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>testimoni</SectionLabel>
+      <SectionLabel>{testimonialsLabel}</SectionLabel>
 
       <div className="mt-6 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-20">
         <div className="relative min-h-[280px] flex-1 md:min-h-[320px]">
@@ -62,7 +62,7 @@ export function Testimonials() {
           <button
             type="button"
             onClick={prev}
-            aria-label="Testimoni sebelumnya"
+            aria-label="Penghargaan sebelumnya"
             className="flex size-12 items-center justify-center rounded-full bg-white/55 text-dh-dark backdrop-blur-sm transition-transform duration-300 active:scale-95 md:size-14"
           >
             <ArrowLeft size={22} weight="regular" />
@@ -70,7 +70,7 @@ export function Testimonials() {
           <button
             type="button"
             onClick={next}
-            aria-label="Testimoni berikutnya"
+            aria-label="Penghargaan berikutnya"
             className="flex size-12 items-center justify-center rounded-full bg-white/55 text-dh-dark backdrop-blur-sm transition-transform duration-300 active:scale-95 md:size-14"
           >
             <ArrowRight size={22} weight="regular" />

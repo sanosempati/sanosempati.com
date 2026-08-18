@@ -33,7 +33,7 @@ export function ContactModal() {
     }
 
     const lines = [
-      "Halo Sano, saya ingin diskusi proyek.",
+      "Halo Sano, saya ingin berdiskusi.",
       "",
       `Nama: ${name}`,
       company ? `Perusahaan: ${company}` : null,

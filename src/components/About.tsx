@@ -48,9 +48,11 @@ export function About() {
           <h2 className="font-display whitespace-pre-line text-[clamp(1.75rem,3.2vw,3.25rem)] font-medium leading-[1.15] tracking-tight text-dh-dark">
             {about.heading}
           </h2>
-          <p className="mt-8 max-w-[58ch] text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-[1.55] text-dh-medium">
-            {about.body}
-          </p>
+          <div className="mt-8 flex max-w-[58ch] flex-col gap-5 text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-[1.55] text-dh-medium">
+            {about.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
           <div className="mt-10">
             <PrimaryButton onClick={() => setOpen(true)} variant="primary">
               {about.cta}

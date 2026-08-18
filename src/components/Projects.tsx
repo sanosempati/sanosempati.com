@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { projects } from "@/lib/content";
+import { projects, projectsLabel } from "@/lib/content";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
@@ -14,7 +14,7 @@ export function Projects() {
       joinTop
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>proyek</SectionLabel>
+      <SectionLabel>{projectsLabel}</SectionLabel>
 
       <div className="mt-4 grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 md:gap-y-20">
         {projects.map((project, index) => (

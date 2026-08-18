@@ -1,189 +1,202 @@
 export const site = {
   name: "Sano Sempati",
   nameCompact: "SANOSEMPATI",
-  title: "Sano Sempati – Web Designer | Web Design Modern & SEO",
+  title: "Sano Sempati – Product Manager | Assessment tools for HR & talent",
   description:
-    "Web design modern & SEO. Saya membuat website individual dengan fokus pada teknik, desain, dan visibilitas.",
+    "Product Manager di Talentlytica. Merancang produk asesmen HR dengan data, desain, dan GenAI — LLM, RAG, dan GraphRAG.",
   location: "Indonesia",
-  email: "hello@sanosempati.com",
-  phone: "+62 812 3456 7890",
-  linkedin: "https://www.linkedin.com/in/",
+  email: "sanosempati@gmail.com",
+  phone: "+62 877 7566 7704",
+  linkedin: "https://www.linkedin.com/in/sanosempati",
   year: 2026,
 };
 
 export const navLinks = [
   { href: "#tentang", label: "Tentang saya" },
-  { href: "#proyek", label: "Proyek" },
-  { href: "#layanan", label: "Layanan" },
+  { href: "#proyek", label: "Pengalaman" },
+  { href: "#layanan", label: "Keahlian" },
   { href: "#kontak", label: "Kontak" },
 ];
 
 export const hero = {
-  line1: "Crafting Webdesign",
-  line2: "for Brands & Businesses.",
+  line1: "Building products",
+  line2: "for talent decisions.",
   tagline:
-    "Hi, saya Sano — Saya membantu kamu meninggalkan kesan yang bertahan lama di dunia digital.",
-  cta: "Mulai proyek",
+    "Hi, saya Sano — Product Manager di Talentlytica. Saya merancang alat asesmen yang membantu perusahaan menemukan talent yang tepat, dengan data, desain, dan GenAI.",
+  cta: "Mari berdiskusi",
 };
 
 export const about = {
   label: "tentang saya",
-  heading: "Hi, saya Sano.\nWeb designer dari Indonesia.",
-  body: "Apa yang dulu dimulai sebagai hobi kini menjadi pekerjaan saya. Saya menemani kamu dari ide pertama hingga website jadi, dan merancang solusi yang tepat untuk kamu serta bisnis atau proyekmu. Saya membangun halaman yang meyakinkan secara visual dan bersih secara teknis — dari kartu nama digital sederhana hingga proyek web yang lebih besar.",
-  cta: "Mulai proyek",
-  image: "https://picsum.photos/seed/sano-portrait/800/800",
+  heading: "Hi, saya Sano.\nProduct Manager dari Indonesia.",
+  body: [
+    "Saat ini saya bekerja di PT Global Talentlytica Indonesia, perusahaan dengan visi “Unravel the Talent with Data Science”. Kami percaya setiap orang adalah maestro di bidangnya — setiap individu punya keunggulan unik yang sudah ada dalam dirinya.",
+    "Dengan data, analitik, psikologi, dan teknologi, kami membantu perusahaan menemukan karyawan yang sesuai dengan pekerjaannya, dan karyawan yang sesuai dengan dirinya.",
+    "Sebagai Product Manager, saya mengorkestrasi setiap tim agar berjalan sesuai tujuan perusahaan. Latar belakang saya di UX design membuat saya tetap dekat dengan masalah pengguna saat merancang produk. Saya lulusan Ilmu Komputer Universitas Gunadarma (2011–2015).",
+  ],
+  cta: "Mari berdiskusi",
+  image: "https://picsum.photos/seed/sano-sempati-portrait/800/800",
 };
+
+export const projectsLabel = "pengalaman";
 
 export const projects = [
   {
-    title: "Atlas Studio",
-    description: "Website untuk studio kreatif independen",
-    image: "https://picsum.photos/seed/atlas-studio/1200/900",
-    bg: "https://picsum.photos/seed/atlas-bg/1200/900",
+    title: "Talentlytica — Product Manager",
+    description:
+      "Januari 2021–sekarang · Menyelaraskan kebutuhan bisnis dan pengguna untuk produk asesmen HR & keputusan talent.",
+    image: "https://picsum.photos/seed/talentlytica-product/1200/900",
+    bg: "https://picsum.photos/seed/talentlytica-bg/1200/900",
   },
   {
-    title: "Lumen Agency",
-    description: "Website dalam kolaborasi dengan tim brand",
-    image: "https://picsum.photos/seed/lumen-agency/1200/900",
-    bg: "https://picsum.photos/seed/lumen-bg/1200/900",
+    title: "VANIA",
+    description:
+      "Virtual Assistant & Integration Assessment — prototipe produk asesmen terintegrasi yang saya rancang di Talentlytica.",
+    image: "https://picsum.photos/seed/vania-assistant/1200/900",
+    bg: "https://picsum.photos/seed/vania-bg/1200/900",
   },
   {
-    title: "Northwind Coach",
-    description: "Website untuk personal brand coach",
-    image: "https://picsum.photos/seed/northwind/1200/900",
-    bg: "https://picsum.photos/seed/northwind-bg/1200/900",
+    title: "talentlytica.com",
+    description:
+      "Redesign website perusahaan (2019–2020), saat saya berperan sebagai UX Designer di Talentlytica.",
+    image: "https://picsum.photos/seed/talentlytica-web/1200/900",
+    bg: "https://picsum.photos/seed/talentlytica-web-bg/1200/900",
   },
   {
-    title: "Harbor Notes",
-    description: "Website untuk content creator",
-    image: "https://picsum.photos/seed/harbor-notes/1200/900",
-    bg: "https://picsum.photos/seed/harbor-bg/1200/900",
+    title: "Mayora Internet Banking",
+    description:
+      "Gagasimaji, 2018–2019 · Riset pengguna, desain UI, dan prototipe halaman internet banking untuk stakeholder dan frontend.",
+    image: "https://picsum.photos/seed/mayora-banking/1200/900",
+    bg: "https://picsum.photos/seed/mayora-bg/1200/900",
   },
   {
-    title: "Quiet Form",
-    description: "Website untuk praktik terapi",
-    image: "https://picsum.photos/seed/quiet-form/1200/900",
-    bg: "https://picsum.photos/seed/quiet-bg/1200/900",
+    title: "QIU — UI/UX Engineer",
+    description:
+      "PT NMx Indonesia, 2017–2018 · UI iOS & Android, website HTML/CSS/JS, admin Vue, plus dokumentasi ADD dan skenario uji.",
+    image: "https://picsum.photos/seed/qiu-app/1200/900",
+    bg: "https://picsum.photos/seed/qiu-bg/1200/900",
   },
   {
-    title: "Signal Room",
-    description: "Website untuk studio produksi audio",
-    image: "https://picsum.photos/seed/signal-room/1200/900",
-    bg: "https://picsum.photos/seed/signal-bg/1200/900",
+    title: "UKMSISTEM",
+    description:
+      "Web Designer, 2016–2017 · Website ukmsistem.id, UI aplikasi ERP, alur bisnis, dan marketing kit untuk UKM.",
+    image: "https://picsum.photos/seed/ukmsistem/1200/900",
+    bg: "https://picsum.photos/seed/ukmsistem-bg/1200/900",
   },
 ];
+
+export const testimonialsLabel = "penghargaan";
 
 export const testimonials = [
   {
     quote:
-      "Sano benar-benar salah satu pengalaman paling menyenangkan yang pernah saya alami dalam sebuah proyek. Tidak ribet, sangat andal, dan alurnya mulus. Ia mengerjakan mockup landing page saya secara mandiri — cepat, terpikir matang, dan punya rasa detail yang bagus. Saya hampir tidak perlu menjelaskan; ia langsung paham intinya. Dan di samping itu: orangnya sangat menyenangkan. Saya siap bekerja sama lagi kapan saja.",
-    name: "Raka Pramudya",
-    role: "Creator, Meet your Mentor",
-    avatar: "https://picsum.photos/seed/raka-avatar/200/200",
+      "Masuk 59 besar Google Cloud GenAI Hackathon APAC Edition 2024 — kompetisi yang memperdalam praktik saya di LLM, RAG, dan agent di Vertex AI.",
+    name: "Google Cloud GenAI Hackathon",
+    role: "Top 59 · APAC Edition 2024",
+    avatar: "https://picsum.photos/seed/genai-hackathon/200/200",
   },
   {
     quote:
-      "Sano mendukung kami secara luar biasa baik di desain maupun konsep website. Ia membawa ide sendiri dan menyatukannya dengan tepat ke visi klien. Kami sangat merekomendasikan kerja sama dengannya.",
-    name: "Nadia Kartika",
-    role: "Direktur, Brainscent",
-    avatar: "https://picsum.photos/seed/nadia-avatar/200/200",
+      "Juara 2 KIA in Action ITS, apresiasi atas kontribusi di kompetisi inovasi yang menajamkan cara saya merancang solusi.",
+    name: "KIA in Action ITS",
+    role: "Juara 2",
+    avatar: "https://picsum.photos/seed/kia-its/200/200",
   },
   {
     quote:
-      "Kerja sama dengan Sano terasa profesional dan punya kepekaan tinggi terhadap kebutuhan yang kompleks. Kombinasi kemampuan teknis dan desain yang berorientasi klien membuat setiap kolaborasi jadi pengalaman yang menyenangkan.",
-    name: "Bima Santoso",
-    role: "Direktur, Dein Coach",
-    avatar: "https://picsum.photos/seed/bima-avatar/200/200",
-  },
-  {
-    quote:
-      "Sano menyelesaikan website kami dengan sangat cepat sambil tetap memperhatikan semua permintaan dan masukan. Yang menonjol bukan hanya pemahaman desainnya, tapi juga caranya yang ramah sehingga kerja sama terasa nyaman.",
-    name: "Alya Mahendra",
-    role: "Kepala Studio, Tonstudio B12",
-    avatar: "https://picsum.photos/seed/alya-avatar/200/200",
+      "Masuk Top 100 Sicio Digi Leader Winners 2017, pengakuan atas kepemimpinan digital di ekosistem startup Indonesia.",
+    name: "Sicio Digi Leader",
+    role: "Top 100 Winners · 2017",
+    avatar: "https://picsum.photos/seed/sicio-digi/200/200",
   },
 ];
 
+export const servicesLabel = "keahlian";
+
 export const servicesIntro =
-  "Web design, development, SEO, dan perawatan. Saya kerjakan itu untukmu, supaya kamu bisa fokus pada bisnis inti.";
+  "Product management, desain, dan GenAI. Saya rapatkan bisnis, pengguna, dan teknologi supaya keputusan talent jadi lebih tepat.";
 
 export const services = [
   {
     number: "01.",
-    title: "Webdesign",
-    text: "Saya merancang website yang cocok denganmu dan audiensmu. Jelas, responsif, dan mudah digunakan. Bukan solusi template, melainkan konsep individual dengan fokus pada struktur, dampak, dan estetika.",
+    title: "Product Management",
+    text: "Saya mengorkestrasi tim agar bergerak sesuai tujuan perusahaan: menyelaraskan kebutuhan bisnis dan pengguna, merawat discovery, dan membawa produk asesmen dari ide sampai rilis.",
   },
   {
     number: "02.",
-    title: "Development",
-    text: "Pengembangan web yang kuat: saya mewujudkan websitemu dengan teknologi modern — untuk loading cepat, stabilitas optimal, dan tampilan sempurna di semua perangkat.",
+    title: "UX & Product Design",
+    text: "PM yang tetap merancang. Dari dashboard admin, prototipe, hingga alur asesmen — saya meriset, mendesain, dan berkolaborasi dengan engineering agar pengalaman terasa jelas.",
   },
   {
     number: "03.",
-    title: "SEO",
-    text: "Visibilitas bukan kebetulan. Saya mengintegrasikan SEO sejak konsep, melalui kode yang bersih, konten yang jelas, dan struktur halaman yang matang. Agar websitemu juga ditemukan.",
+    title: "LLM, RAG & GraphRAG",
+    text: "Saya membangun dan men-deploy agent dengan Reasoning Engine di Vertex AI, serta mempraktikkan Large Language Models, RAG, dan GraphRAG untuk produk yang lebih cerdas.",
   },
   {
     number: "04.",
-    title: "Perawatan & Support",
-    text: "Setelah launch pun saya tetap di sampingmu. Baik update rutin, perawatan teknis, maupun penyesuaian kecil — saya pastikan semuanya berjalan lancar.",
+    title: "Talent Assessment",
+    text: "Fokus saya: alat asesmen HR yang membantu perusahaan menemukan orang yang cocok dengan pekerjaannya, dan orang yang cocok dengan dirinya — dengan data science dan psikologi.",
   },
 ];
 
 export const processIntro =
-  "Supaya kamu tahu persis bagaimana proyek berjalan bersama saya, berikut ringkasan semua fase penting.";
+  "Cara saya membawa produk dari insight sampai rilis. Ringkas, kolaboratif, dan selalu dekat dengan pengguna.";
 
 export const processSteps = [
   {
     number: "01.",
-    title: "Konsep",
-    text: "Pertama kita bicara tentang tujuan, audiens, dan keinginan desainmu. Dari situ saya merancang konsep website yang disesuaikan khusus untukmu.",
+    title: "Discovery",
+    text: "Saya mulai dari tujuan bisnis, kebutuhan pengguna, dan bukti di lapangan. Product discovery membantu memilah masalah mana yang benar-benar layak dibangun.",
   },
   {
     number: "02.",
-    title: "Webdesign",
-    text: "Setelah konsep, saya membuat desain visual yang mencerminkan brandmu. Kamu mendapat update rutin agar desain sesuai dengan yang kamu bayangkan.",
+    title: "Align",
+    text: "Saya menyelaraskan stakeholder, psikologi, data, dan engineering agar satu arah. Setiap tim tahu mengapa sebuah fitur ada — bukan hanya apa yang harus dikerjakan.",
   },
   {
     number: "03.",
-    title: "Development",
-    text: "Begitu desain siap, development dimulai. Di sini websitemu dibangun dengan teknologi modern dan metode yang teruji. Sepanjang proses saya terus memberi kabar dan mengintegrasikan feedbackmu.",
+    title: "Design & prototype",
+    text: "Saya merancang alur dan antarmuka, lalu membuat prototipe untuk diuji. Feedback masuk lebih awal, sebelum development berjalan terlalu jauh.",
   },
   {
     number: "04.",
-    title: "Go-live",
-    text: "Begitu kamu puas, websitemu live. Saya juga siap mendampingi jangka panjang setelah peluncuran, agar semuanya tetap berjalan mulus atau jika ada yang ingin diubah.",
+    title: "Orchestrate & ship",
+    text: "Saya menjaga ritme rilis: prioritas, komunikasi antar tim, dan kualitas. Produk live, lalu kita belajar lagi dari pemakaian nyata.",
   },
 ];
 
 export const faqIntro =
-  "Mungkin kamu punya beberapa pertanyaan sebelum kita mulai. Di sini jawaban untuk pertanyaan yang paling sering muncul.";
+  "Beberapa hal yang sering ditanyakan tentang peran, latar belakang, dan cara berkolaborasi dengan saya.";
 
 export const faqs = [
   {
-    q: "Untuk siapa sebenarnya layanan saya?",
-    a: "Pekerjaan saya ditujukan untuk freelancer, UMKM, personal brand, dan juga agensi yang mencari seseorang yang andal untuk merancang serta mengembangkan website modern yang individual. Baik kamu ingin memperkuat brand ke luar, mengoptimalkan proyek yang sudah ada, atau butuh dukungan sebagai agensi — kamu mendapat solusi yang disesuaikan dengan tujuanmu.",
+    q: "Apa yang kamu kerjakan sekarang?",
+    a: "Saya Product Manager di PT Global Talentlytica Indonesia sejak Januari 2021. Saya merancang dan mengorkestrasi produk asesmen untuk keputusan HR dan talent, dengan visi perusahaan “Unravel the Talent with Data Science”.",
   },
   {
-    q: "Berapa lama sampai website saya online?",
-    a: "Tergantung lingkup proyek. Website yang lebih kecil bisa online dalam beberapa minggu, sementara proyek yang lebih besar butuh waktu lebih lama. Setelah percakapan awal, saya bisa memberi perkiraan waktu yang jelas dan realistis.",
+    q: "Apakah kamu masih merancang UI/UX?",
+    a: "Ya. Saya PM yang designs. Sebelum jadi Product Manager, saya UX Designer di Talentlytica, UI/UX Engineer di NMx (QIU), dan Web Designer di UKMSISTEM. Desain tetap jadi cara saya memahami masalah pengguna.",
   },
   {
-    q: "Berapa kira-kira biaya sebuah website?",
-    a: "Biaya bergantung pada lingkup dan fungsi yang diinginkan. Setiap website dibuat secara individual, jadi tidak ada harga paket. Setelah percakapan singkat, saya buatkan penawaran yang pas dengan kebutuhanmu.",
+    q: "Seberapa dalam pengalamanmu di GenAI?",
+    a: "Keahlian utama saya meliputi LLM, RAG, dan GraphRAG. Saya tersertifikasi membangun dan men-deploy agent dengan Reasoning Engine di Vertex AI, dan masuk Top 59 Google Cloud GenAI Hackathon APAC Edition 2024. Sertifikasi lain: SQL Fundamentals, Full Stack Product Management, dan Product Discovery Workshop.",
   },
   {
-    q: "Apakah kamu juga menawarkan SEO dan optimasi teknis?",
-    a: "Ya. Setiap website diimplementasikan secara teknis dengan bersih dan dioptimalkan untuk Google sejak awal. Termasuk loading cepat, struktur halaman yang jelas, metadata yang dioptimalkan, struktur HTML yang rapi, dan optimasi gambar. Atas permintaan, saya juga bisa menawarkan analisis SEO lanjutan.",
+    q: "Bagaimana jejak kariermu sebelum jadi PM?",
+    a: "Saya UX Designer di Talentlytica (2019–2020), merancang internet banking Mayora bersama Gagasimaji, menjadi UI/UX Engineer untuk aplikasi QIU di NMx, mentoring startup di BekUp 2017 (Bekraf × MIKTI, DILO Depok), merancang UKMSISTEM, freelance di Geotronix, dan mengajar JAVA, .NET, HTML, serta JS sebagai asisten lab LepKom Universitas Gunadarma.",
+  },
+  {
+    q: "Bagaimana cara mulai berkolaborasi?",
+    a: "Kirim pesan lewat formulir, email sanosempati@gmail.com, WhatsApp, atau LinkedIn. Ceritakan konteks produk atau keputusan talent yang sedang kamu kerjakan — saya akan merespons untuk mengatur percakapan awal.",
   },
 ];
 
 export const contact = {
-  title: "Ajukan proyek",
-  introBefore: "Ceritakan singkat tentang proyekmu! Isi formulir atau kirim ",
+  title: "Mari berdiskusi",
+  introBefore: "Ceritakan singkat apa yang ingin kita bahas. Isi formulir, atau kirim ",
   introAfter: " — saya akan menghubungimu.",
   footerCta:
-    "Mari bicarakan proyekmu — dan buat sesuatu yang benar-benar bagus darinya!",
+    "Punya tantangan produk, asesmen, atau GenAI? Mari bicarakan — dan bangun sesuatu yang lebih tepat dari situ.",
   success: "Pesan siap dikirim lewat WhatsApp. Lanjutkan di jendela yang terbuka.",
   error: "Lengkapi nama, email, telepon, dan pesan dulu.",
   fields: {
@@ -191,7 +204,7 @@ export const contact = {
     company: "Perusahaan",
     email: "E-Mail",
     phone: "Telepon / WhatsApp",
-    details: "Detail proyek",
+    details: "Topik diskusi",
     message: "Pesan",
   },
 };
