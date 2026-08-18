@@ -1,6 +1,6 @@
 # sanosempati.com
 
-Portfolio one-pager untuk **Sano Sempati**, diadaptasi dari struktur dan bahasa visual [danielherzog.design](https://www.danielherzog.design/).
+Portfolio one-pager untuk **Sano Sempati**, Product Manager di Talentlytica. Konten diselaraskan dengan profil LinkedIn: produk asesmen HR, UX, dan GenAI (LLM, RAG, GraphRAG).
 
 ## Menjalankan lokal
 

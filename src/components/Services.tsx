@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { services, servicesIntro } from "@/lib/content";
+import { services, servicesIntro, servicesLabel } from "@/lib/content";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
@@ -13,7 +13,7 @@ export function Services() {
       joinBottom
       innerClassName="section-pad py-16 md:py-[clamp(6rem,9vw,9rem)]"
     >
-      <SectionLabel tone="light">layanan saya</SectionLabel>
+      <SectionLabel tone="light">{servicesLabel}</SectionLabel>
 
       <motion.p
         className="font-display mt-2 max-w-3xl text-[clamp(1.5rem,2.6vw,2.75rem)] font-medium leading-[1.2] tracking-tight text-white"
