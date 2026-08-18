@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { GlobeHemisphereEast } from "@phosphor-icons/react";
+import { ArrowUpRight, GlobeHemisphereEast, LinkedinLogo } from "@phosphor-icons/react";
 import { hero, site } from "@/lib/content";
 import { useContact } from "./ContactProvider";
 import { PrimaryButton } from "./PrimaryButton";
-import { RecedingHeroText } from "./RecedingHeroText";
 import { SectionShell } from "./SectionShell";
 
 export function Hero() {
@@ -14,41 +14,81 @@ export function Hero() {
   return (
     <SectionShell
       id="top"
-      tone="sky"
-      innerClassName="flex min-h-[calc(100dvh-1rem)] flex-col justify-end section-pad pb-[8vw] pt-28 md:min-h-[calc(100dvh-1.25rem)] md:pb-[5vw]"
+      tone="white"
+      innerClassName="section-pad flex min-h-[calc(100dvh-1rem)] flex-col justify-end pb-10 pt-28 md:min-h-[calc(100dvh-1.25rem)] md:pb-14 md:pt-32"
     >
-      <div className="relative z-[1] flex w-full flex-col">
-        <RecedingHeroText line1={hero.line1} line2={hero.line2} />
-
+      <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
         <motion.div
-          className="mt-10 flex items-center justify-end gap-2 text-dh-dark md:mt-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.35, duration: 0.7 }}
+          initial={{ y: 28, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <GlobeHemisphereEast size={18} weight="regular" />
-          <span className="text-sm font-medium md:text-base">{site.location}</span>
+          <p className="text-sm font-medium uppercase tracking-[0.08em] text-dh-medium">
+            {hero.role} · {hero.company}
+          </p>
+          <h1 className="font-display mt-4 max-w-[12ch] text-[clamp(2.75rem,7vw,6.25rem)] font-medium leading-[0.95] tracking-[-0.04em] text-dh-dark">
+            {site.name}
+          </h1>
+          <p className="mt-6 max-w-[36ch] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-relaxed text-dh-medium">
+            {hero.headline}
+          </p>
+
+          <div className="mt-6 flex items-center gap-2 text-dh-dark/80">
+            <GlobeHemisphereEast size={18} weight="regular" />
+            <span className="text-sm font-medium md:text-base">
+              {site.location}
+            </span>
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <PrimaryButton
+              size="lg"
+              variant="primary"
+              onClick={() => setOpen(true)}
+            >
+              {hero.cta}
+            </PrimaryButton>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-memphis btn-memphis--lg inline-flex items-center justify-center gap-2 rounded-[14px] border-[3px] border-solid border-[#17140d] bg-white px-8 py-3.5 text-[0.9375rem] font-medium tracking-tight text-[#17140d] transition-[transform,box-shadow] duration-150 ease-out md:px-10 md:py-4 md:text-base"
+            >
+              <LinkedinLogo size={18} weight="bold" />
+              {hero.linkedinCta}
+              <ArrowUpRight size={16} weight="bold" />
+            </a>
+          </div>
         </motion.div>
 
-        <div className="mt-12 h-px w-full bg-dh-dark/20 md:mt-16" />
-
         <motion.div
-          className="mt-8 flex flex-col gap-6 md:mt-12 md:flex-row md:items-end md:justify-between"
-          initial={{ y: 24, opacity: 0 }}
+          className="flex flex-col gap-6"
+          initial={{ y: 32, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.45, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.15, duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="max-w-xl text-base font-medium leading-relaxed text-dh-dark/80 md:max-w-2xl md:text-[clamp(1rem,1.15vw,1.25rem)]">
-            {hero.tagline}
-          </p>
-          <PrimaryButton
-            size="lg"
-            variant="primary"
-            onClick={() => setOpen(true)}
-            className="self-start md:self-auto"
-          >
-            {hero.cta}
-          </PrimaryButton>
+          <div className="overflow-hidden rounded-[14px] border-[3px] border-[#17140d] shadow-[8px_8px_0_#17140d]">
+            <Image
+              src={hero.image}
+              alt={site.name}
+              width={800}
+              height={960}
+              priority
+              className="aspect-[4/5] w-full object-cover grayscale"
+            />
+          </div>
+          <dl className="grid grid-cols-3 gap-4 border-t border-dh-dark/15 pt-5">
+            {hero.facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="text-xs font-medium uppercase tracking-[0.08em] text-dh-medium">
+                  {fact.label}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-dh-dark md:text-base">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </motion.div>
       </div>
     </SectionShell>

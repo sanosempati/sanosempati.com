@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type SectionTone = "light" | "dark" | "white" | "sky" | "mint";
+export type SectionTone = "light" | "dark" | "white" | "sky" | "mint" | "peach";
 
 const tones: Record<SectionTone, string> = {
   light: "bg-dh-light text-dh-dark",
@@ -8,6 +8,7 @@ const tones: Record<SectionTone, string> = {
   dark: "bg-dh-dark text-white",
   sky: "bg-dh-sky text-dh-dark",
   mint: "bg-dh-mint text-dh-dark",
+  peach: "bg-dh-peach text-dh-dark",
 };
 
 const paperByTone: Record<SectionTone, string> = {
@@ -16,6 +17,7 @@ const paperByTone: Record<SectionTone, string> = {
   dark: "paper-texture paper-texture--dark",
   sky: "paper-texture paper-texture--sky",
   mint: "paper-texture paper-texture--mint",
+  peach: "paper-texture paper-texture--peach",
 };
 
 type Props = {
@@ -28,6 +30,8 @@ type Props = {
   joinTop?: boolean;
   /** Gabung dengan section berikutnya (warna sama) */
   joinBottom?: boolean;
+  /** Matikan paper texture (untuk media/illustration) */
+  paper?: boolean;
 };
 
 export function SectionShell({
@@ -38,6 +42,7 @@ export function SectionShell({
   innerClassName = "",
   joinTop = false,
   joinBottom = false,
+  paper = true,
 }: Props) {
   const shellJoin = [
     joinTop ? "section-shell--join-top" : "",
@@ -58,8 +63,8 @@ export function SectionShell({
       <div
         className={`section-panel relative overflow-hidden ${tones[tone]} ${panelJoin} ${innerClassName}`}
       >
-        <div className={paperByTone[tone]} aria-hidden />
-        <div className="relative z-[1] h-full">{children}</div>
+        {paper ? <div className={paperByTone[tone]} aria-hidden /> : null}
+        <div className="relative z-[1] min-h-full">{children}</div>
       </div>
     </section>
   );

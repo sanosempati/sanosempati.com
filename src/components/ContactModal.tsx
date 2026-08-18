@@ -8,7 +8,9 @@ import { useContact } from "./ContactProvider";
 import { PrimaryButton } from "./PrimaryButton";
 
 function toWhatsAppNumber(phone: string) {
-  return phone.replace(/\D/g, "");
+  let digits = phone.replace(/\D/g, "");
+  if (digits.startsWith("0")) digits = `62${digits.slice(1)}`;
+  return digits;
 }
 
 export function ContactModal() {
@@ -33,13 +35,13 @@ export function ContactModal() {
     }
 
     const lines = [
-      "Halo Sano, saya ingin berdiskusi.",
+      "Halo Sano, saya ingin menghubungimu.",
       "",
       `Nama: ${name}`,
-      company ? `Perusahaan: ${company}` : null,
+      company ? `Perusahaan / organisasi: ${company}` : null,
       `E-Mail: ${email}`,
       `Telepon: ${phone}`,
-      details ? `Detail proyek: ${details}` : null,
+      details ? `Konteks: ${details}` : null,
       "",
       "Pesan:",
       message,

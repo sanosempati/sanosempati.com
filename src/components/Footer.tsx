@@ -12,7 +12,6 @@ export function Footer() {
     <SectionShell
       id="kontak"
       tone="dark"
-      joinTop
       innerClassName="section-pad pt-16 md:pt-[clamp(5rem,9vw,9rem)]"
     >
       <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-16">
@@ -26,7 +25,7 @@ export function Footer() {
 
       <div className="mt-16 h-px w-full bg-white/15 md:mt-24" />
 
-      <div className="grid grid-cols-1 gap-10 py-10 md:grid-cols-3 md:gap-8 md:py-14">
+      <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8 md:py-14">
         <div>
           <p className="mb-2 text-sm font-medium text-dh-soft">Telepon</p>
           <a
@@ -45,18 +44,33 @@ export function Footer() {
             {site.email}
           </a>
         </div>
-        <div className="md:text-right">
-          <p className="mb-2 text-sm font-medium text-dh-soft">LinkedIn</p>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
-          >
-            /in/sanosempati
-          </a>
-          <p className="mt-4 text-sm font-medium text-dh-soft">
+        <div>
+          <p className="mb-2 text-sm font-medium text-dh-soft">Sosial</p>
+          <div className="flex flex-col gap-1.5">
+            <a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
+            >
+              Instagram
+            </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <div className="sm:text-right md:text-right">
+          <p className="mb-2 text-sm font-medium text-dh-soft">
             &copy; {site.year}
+          </p>
+          <p className="text-base font-medium text-white/50 md:text-lg">
+            {site.name}
           </p>
         </div>
       </div>

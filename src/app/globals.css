@@ -12,6 +12,7 @@
   --dh-page: #fcf9f7;
   --dh-sky: #8ac8ea;
   --dh-mint: #82cb8a;
+  --dh-peach: #fdc5c4;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -26,6 +27,7 @@
   --color-dh-soft: var(--dh-text-soft);
   --color-dh-sky: var(--dh-sky);
   --color-dh-mint: var(--dh-mint);
+  --color-dh-peach: var(--dh-peach);
   --font-sans: var(--font-untitled-sans), "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-bricolage), "Helvetica Neue", Arial, sans-serif;
 }
@@ -88,6 +90,11 @@ body {
 .paper-texture--mint {
   mix-blend-mode: overlay;
   opacity: 0.42;
+}
+
+.paper-texture--peach {
+  mix-blend-mode: soft-light;
+  opacity: 0.18;
 }
 
 .section-shell {
