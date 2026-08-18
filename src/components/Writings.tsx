@@ -5,7 +5,8 @@ import {
   type MediumPost,
 } from "@/lib/medium";
 import { writings } from "@/lib/content";
-import { SectionLabel } from "./SectionLabel";
+import { BilingualText } from "./BilingualText";
+import { SectionHeading } from "./SectionHeading";
 import { SectionShell } from "./SectionShell";
 
 function ArrowIcon({ className = "" }: { className?: string }) {
@@ -65,27 +66,24 @@ export async function Writings() {
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div>
-          <SectionLabel>{writings.label}</SectionLabel>
-          <h2 className="font-display mt-2 max-w-2xl text-[clamp(1.5rem,2.6vw,2.75rem)] font-medium leading-[1.2] tracking-tight text-dh-dark">
-            {writings.heading}
-          </h2>
-        </div>
+        <SectionHeading label={writings.label} heading={writings.heading} />
         <a
           href={profileUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 self-start text-sm font-medium text-dh-dark underline decoration-dh-dark/25 underline-offset-4 transition-colors hover:decoration-dh-dark md:self-auto"
         >
-          {writings.viewAll}
+          <BilingualText value={writings.viewAll} as="span" />
           <ArrowIcon className="h-4 w-4" />
         </a>
       </div>
 
       {posts.length === 0 ? (
-        <p className="mt-12 text-base font-medium text-dh-medium">
-          {writings.empty}
-        </p>
+        <BilingualText
+          value={writings.empty}
+          as="p"
+          className="mt-12 text-base font-medium text-dh-medium"
+        />
       ) : (
         <div className="mt-10 md:mt-14">
           {posts.map((post, index) => (

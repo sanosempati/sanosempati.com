@@ -4,9 +4,11 @@ import Image from "next/image";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { speaking, speakingIntro } from "@/lib/content";
+import { speaking, speakingIntro, ui } from "@/lib/content";
+import { useLanguage } from "./LanguageProvider";
 import { CompanyBadge } from "./CompanyBadge";
-import { SectionLabel } from "./SectionLabel";
+import { BilingualText } from "./BilingualText";
+import { SectionHeading } from "./SectionHeading";
 import { SectionShell } from "./SectionShell";
 
 const PAGE_SIZE = 6;
@@ -47,6 +49,7 @@ function SpeakingCover({
 
 export function Speaking() {
   const [page, setPage] = useState(0);
+  const { t } = useLanguage();
 
   const totalPages = Math.ceil(speaking.length / PAGE_SIZE);
   const visible = useMemo(
@@ -65,13 +68,11 @@ export function Speaking() {
       joinTop
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>{speakingIntro.label}</SectionLabel>
-      <h2 className="font-display mt-2 max-w-2xl text-[clamp(1.5rem,2.6vw,2.75rem)] font-medium leading-[1.2] tracking-tight text-dh-dark">
-        {speakingIntro.heading}
-      </h2>
-      <p className="mt-3 max-w-[52ch] text-sm font-medium text-dh-medium md:text-base">
-        {speakingIntro.description}
-      </p>
+      <SectionHeading
+        label={speakingIntro.label}
+        heading={speakingIntro.heading}
+        description={speakingIntro.description}
+      />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -84,7 +85,7 @@ export function Speaking() {
         >
           {visible.map((item, index) => (
             <motion.article
-              key={`${item.title}-${item.year}`}
+              key={`${typeof item.title === "string" ? item.title : item.title.en}-${item.year}`}
               className="group"
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,14 +99,14 @@ export function Speaking() {
                 {item.image ? (
                   <Image
                     src={item.image}
-                    alt={item.title}
+                    alt={t(item.title)}
                     fill
                     className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.03]"
                     sizes="(max-width:768px) 100vw, (max-width:1024px) 50vw, 33vw"
                   />
                 ) : (
                   <SpeakingCover
-                    title={item.title}
+                    title={t(item.title)}
                     org={item.org}
                     year={item.year}
                     tone={COVER_TONES[index % COVER_TONES.length]}
@@ -115,9 +116,11 @@ export function Speaking() {
 
               <div className="mt-4">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display min-w-0 flex-1 text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-snug tracking-tight text-dh-dark">
-                    {item.title}
-                  </h3>
+                  <BilingualText
+                    value={item.title}
+                    as="h3"
+                    className="font-display min-w-0 flex-1 text-[clamp(1rem,1.2vw,1.25rem)] font-medium leading-snug tracking-tight text-dh-dark"
+                  />
                   <span className="shrink-0 pt-0.5 text-sm font-medium text-dh-medium">
                     {item.year}
                   </span>
@@ -139,7 +142,7 @@ export function Speaking() {
                     rel="noopener noreferrer"
                     className="mt-2 inline-flex text-sm font-medium text-dh-dark underline decoration-dh-dark/30 underline-offset-4 transition-colors hover:text-dh-medium hover:decoration-dh-medium"
                   >
-                    Link
+                    {t(ui.link)}
                   </a>
                 ) : null}
               </div>
@@ -154,7 +157,7 @@ export function Speaking() {
           aria-label="Speaking pagination"
         >
           <p className="text-sm font-medium text-dh-medium">
-            Page {page + 1} of {totalPages}
+            {t(ui.page)} {page + 1} {t(ui.of)} {totalPages}
           </p>
           <div className="flex items-center gap-2">
             <button

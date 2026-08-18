@@ -3,19 +3,23 @@
 import { Graph, ListBullets } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { skills, skillsIntro } from "@/lib/content";
-import { SectionLabel } from "./SectionLabel";
+import { skills, skillsIntro, ui } from "@/lib/content";
+import { useLanguage } from "./LanguageProvider";
+import { BilingualText } from "./BilingualText";
+import { SectionHeading } from "./SectionHeading";
 import { SectionShell } from "./SectionShell";
 import { SkillsGraph } from "./SkillsGraph";
 
 type SkillView = "graph" | "list";
 
 function SkillsList() {
+  const { t } = useLanguage();
+
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 md:gap-12">
       {skills.map((group, index) => (
         <motion.article
-          key={group.group}
+          key={group.group.en}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -24,12 +28,16 @@ function SkillsList() {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          <h3 className="font-display text-[clamp(1.15rem,1.4vw,1.35rem)] font-medium tracking-tight text-dh-dark">
-            {group.group}
-          </h3>
-          <p className="mt-2 text-sm font-medium leading-relaxed text-dh-medium md:text-[0.9375rem]">
-            {group.summary}
-          </p>
+          <BilingualText
+            value={group.group}
+            as="h3"
+            className="font-display text-[clamp(1.15rem,1.4vw,1.35rem)] font-medium tracking-tight text-dh-dark"
+          />
+          <BilingualText
+            value={group.summary}
+            as="p"
+            className="mt-2 text-sm font-medium leading-relaxed text-dh-medium md:text-[0.9375rem]"
+          />
           <ul className="mt-4 divide-y divide-dh-dark/15 border-t border-dh-dark/15">
             {group.items.map((item) => (
               <li
@@ -53,9 +61,10 @@ function ViewToggle({
   view: SkillView;
   onChange: (next: SkillView) => void;
 }) {
-  const options: { id: SkillView; label: string; icon: typeof Graph }[] = [
-    { id: "graph", label: "Graph", icon: Graph },
-    { id: "list", label: "List", icon: ListBullets },
+  const { t } = useLanguage();
+  const options: { id: SkillView; label: typeof ui.graph; icon: typeof Graph }[] = [
+    { id: "graph", label: ui.graph, icon: Graph },
+    { id: "list", label: ui.list, icon: ListBullets },
   ];
 
   return (
@@ -79,7 +88,7 @@ function ViewToggle({
             }`}
           >
             <Icon size={16} weight={active ? "bold" : "regular"} />
-            {option.label}
+            {t(option.label)}
           </button>
         );
       })}
@@ -98,15 +107,12 @@ export function Skills() {
     >
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <SectionLabel>{skillsIntro.label}</SectionLabel>
-          <h2 className="font-display mt-2 max-w-2xl text-[clamp(1.5rem,2.6vw,2.75rem)] font-medium leading-[1.2] tracking-tight text-dh-dark">
-            {skillsIntro.heading}
-          </h2>
-          <p className="mt-3 max-w-[52ch] text-sm font-medium text-dh-medium md:text-base">
-            {view === "graph"
-              ? skillsIntro.graphHint
-              : skillsIntro.listHint}
-          </p>
+          <SectionHeading
+            label={skillsIntro.label}
+            heading={skillsIntro.heading}
+            description={view === "graph" ? skillsIntro.graphHint : skillsIntro.listHint}
+            descriptionClassName="mt-3 max-w-[52ch] text-sm font-medium text-dh-medium md:text-base"
+          />
         </div>
         <ViewToggle view={view} onChange={setView} />
       </div>

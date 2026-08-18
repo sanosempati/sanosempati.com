@@ -1,11 +1,15 @@
 "use client";
 
-import { contact, hero, site } from "@/lib/content";
+import { contact, hero, site, ui } from "@/lib/content";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { BilingualBlock, BilingualText } from "./BilingualText";
+import { useLanguage } from "./LanguageProvider";
 import { PrimaryButton } from "./PrimaryButton";
 import { SectionShell } from "./SectionShell";
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <SectionShell
       id="kontak"
@@ -13,11 +17,12 @@ export function Footer() {
       innerClassName="section-pad pt-16 md:pt-[clamp(5rem,9vw,9rem)]"
     >
       <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-16">
-        <p className="font-display max-w-xl text-[clamp(1.5rem,2.5vw,2.5rem)] font-medium leading-[1.3] tracking-tight text-white">
-          {contact.footerCta}
-        </p>
+        <BilingualBlock
+          value={contact.footerCta}
+          className="font-display max-w-xl text-[clamp(1.5rem,2.5vw,2.5rem)] font-medium leading-[1.3] tracking-tight text-white"
+        />
         <PrimaryButton variant="secondary" size="lg" onClick={() => openWhatsApp()}>
-          {hero.cta}
+          {t(hero.cta)}
         </PrimaryButton>
       </div>
 
@@ -25,7 +30,11 @@ export function Footer() {
 
       <div className="grid grid-cols-1 gap-10 py-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8 md:py-14">
         <div>
-          <p className="mb-2 text-sm font-medium text-dh-soft">Phone</p>
+          <BilingualText
+            value={ui.phone}
+            as="p"
+            className="mb-2 text-sm font-medium text-dh-soft"
+          />
           <a
             href={`tel:${site.phone.replace(/\s/g, "")}`}
             className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
@@ -34,7 +43,11 @@ export function Footer() {
           </a>
         </div>
         <div>
-          <p className="mb-2 text-sm font-medium text-dh-soft">E-Mail</p>
+          <BilingualText
+            value={ui.email}
+            as="p"
+            className="mb-2 text-sm font-medium text-dh-soft"
+          />
           <a
             href={`mailto:${site.email}`}
             className="text-base font-medium text-white transition-opacity hover:opacity-60 md:text-lg"
@@ -43,7 +56,11 @@ export function Footer() {
           </a>
         </div>
         <div>
-          <p className="mb-2 text-sm font-medium text-dh-soft">Social</p>
+          <BilingualText
+            value={ui.social}
+            as="p"
+            className="mb-2 text-sm font-medium text-dh-soft"
+          />
           <div className="flex flex-col gap-1.5">
             <a
               href={site.instagram}

@@ -1,3 +1,5 @@
+import { L, type Bilingual } from "./i18n";
+
 export const site = {
   name: "Sano Sempati",
   nameCompact: "SANOSEMPATI",
@@ -12,38 +14,56 @@ export const site = {
   year: 2026,
 };
 
-export const navLinks = [
-  { href: "#pengalaman", label: "Experience" },
-  { href: "#proyek", label: "Projects" },
-  { href: "#speaking", label: "Speaking" },
-  { href: "#tulisan", label: "Writings" },
-  { href: "#skill", label: "Skills" },
-  { href: "#sertifikat", label: "Certificates" },
+export const ui = {
+  link: L("Link", "Tautan"),
+  page: L("Page", "Halaman"),
+  of: L("of", "dari"),
+  phone: L("Phone", "Telepon"),
+  email: L("E-Mail", "Email"),
+  social: L("Social", "Sosial"),
+  graph: L("Graph", "Grafik"),
+  list: L("List", "Daftar"),
+  present: L("present", "sekarang"),
+};
+
+export const navLinks: { href: string; label: Bilingual }[] = [
+  { href: "#pengalaman", label: L("Experience", "Pengalaman") },
+  { href: "#proyek", label: L("Projects", "Proyek") },
+  { href: "#speaking", label: L("Speaking", "Pembicara") },
+  { href: "#tulisan", label: L("Writings", "Tulisan") },
+  { href: "#skill", label: L("Skills", "Keahlian") },
+  { href: "#sertifikat", label: L("Certificates", "Sertifikat") },
 ];
 
 export const hero = {
-  role: "Product Manager",
+  role: L("Product Manager", "Product Manager"),
   company: "Talentlytica",
-  bio: "Hi, I'm Sano.\n\nFor 6+ years, I’ve been working remotely as a Product Manager at PT Global Talentlytica Indonesia, helping companies make strategic talent decisions through data, analytics, and technology.\n\nPassionate about AI, UX design, and modern tech, I constantly apply cutting-edge tools to real-world workflows. Beyond my main role, I collaborate with businesses on side projects—building high-converting company profile websites, hosting practical AI & product workshops, and helping teams innovate and scale faster.",
-  cta: "Get in touch",
-  linkedinCta: "View LinkedIn",
+  companyUrl: "http://talentlytica.com/",
+  bio: L(
+    "Hi, I'm Sano.\n\nFor 6+ years, I’ve been working remotely as a Product Manager at Talentlytica, helping companies make strategic talent decisions through data, analytics, and technology.\n\nPassionate about AI, Design Interaction, and Modern Tech, I constantly apply cutting-edge tools to real-world workflows. Beyond my main role, I collaborate with businesses on side projects—building high-converting company profile websites, hosting practical AI & product workshops, and helping teams innovate and scale faster.",
+    "Hai, saya Sano.\n\nSelama 6+ tahun, saya bekerja remote sebagai Product Manager di Talentlytica, membantu perusahaan mengambil keputusan talenta strategis lewat data, analitik, dan teknologi.\n\nBersemangat pada AI, Design Interaction, dan Modern Tech, saya terus menerapkan tools mutakhir ke workflow nyata. Di luar peran utama, saya kolaborasi dengan bisnis untuk side project—membangun website company profile, mengadakan workshop AI & product, dan membantu tim berinovasi lebih cepat.",
+  ),
+  cta: L("Get in touch", "Hubungi saya"),
+  linkedinCta: L("View LinkedIn", "Lihat LinkedIn"),
   backgroundImage: "/hero-background.png",
   facts: [
-    { label: "Role", value: "Product Manager" },
-    { label: "Company", value: "Talentlytica" },
-    { label: "Since", value: "Jan 2021" },
+    { label: L("Role", "Peran"), value: "Product Manager" },
+    { label: L("Company", "Perusahaan"), value: "Talentlytica" },
+    { label: L("Since", "Sejak"), value: "Jan 2021" },
   ],
 };
 
 export const speakingIntro = {
-  label: "speaking",
-  heading: "Talks and sessions I've led.",
-  description:
+  label: L("speaking", "pembicara"),
+  heading: L("Talks and sessions I've led.", "Sesi dan panggung yang pernah saya isi."),
+  description: L(
     "I speak at events and workshops on practical AI integration, product management workflows, and remote team execution.",
+    "Saya berbicara di event dan workshop tentang integrasi AI praktis, workflow product management, dan eksekusi tim remote.",
+  ),
 };
 
 export type SpeakingItem = {
-  title: string;
+  title: Bilingual | string;
   subtitle: string;
   year: string;
   org: string;
@@ -55,8 +75,10 @@ export type SpeakingItem = {
 
 export const speaking: SpeakingItem[] = [
   {
-    title:
+    title: L(
       "Graph-Based Customer Insights for Product Decision-Making",
+      "Graph-Based Customer Insights untuk Keputusan Produk",
+    ),
     subtitle: "RevoU AI Community",
     year: "2026",
     org: "RevoU AI Community",
@@ -64,8 +86,10 @@ export const speaking: SpeakingItem[] = [
     image: "/speaking/revou-graph-customer-insights.png",
   },
   {
-    title:
+    title: L(
+      "Create Slide Decks Fast with AI: From Theory to Practice with Gemini & NotebookLM",
       "Bikin Slidedeck Sat-Set Pakai AI: Dari Teori ke Praktek Bareng Gemini & NotebookLM",
+    ),
     subtitle: "Taman Mini Indonesia Indah",
     year: "2026",
     org: "Taman Mini Indonesia Indah (TMII)",
@@ -75,69 +99,86 @@ export const speaking: SpeakingItem[] = [
 ];
 
 export const writings = {
-  label: "writings",
-  heading: "Notes from Medium.",
-  viewAll: "View on Medium",
-  empty: "No writing is available to display yet.",
+  label: L("writings", "tulisan"),
+  heading: L("Notes from Medium.", "Catatan dari Medium."),
+  viewAll: L("View on Medium", "Lihat di Medium"),
+  empty: L(
+    "No writing is available to display yet.",
+    "Belum ada tulisan yang bisa ditampilkan.",
+  ),
 };
 
 export const experienceIntro = {
-  label: "experience",
-  heading: "Where I've worked so far.",
+  label: L("experience", "pengalaman"),
+  heading: L("Where I've worked so far.", "Perjalanan kerja sejauh ini."),
+};
+
+export const projectsIntro = {
+  label: L("projects", "proyek"),
 };
 
 export const experience = [
   {
-    role: "Product Manager",
+    role: L("Product Manager", "Product Manager"),
     org: "Talentlytica",
     domain: "talentlytica.com",
     badge: "talentlytica",
-    period: "Jan 2021 — present",
-    summary:
+    period: L("Jan 2021 — present", "Jan 2021 — sekarang"),
+    summary: L(
       "Orchestrating the product team to stay aligned with company goals. Building assessment tools for talent decisions — from hiring and development to promotion — for 100+ companies.",
+      "Mengorkestrasi tim produk agar selaras dengan tujuan perusahaan. Membangun tools asesmen untuk keputusan talent — dari rekrutmen, development, hingga promosi — untuk 100+ perusahaan.",
+    ),
   },
   {
-    role: "UX Designer",
+    role: L("UX Designer", "UX Designer"),
     org: "Talentlytica",
     domain: "talentlytica.com",
     badge: "talentlytica",
-    period: "Oct 2019 — Dec 2020",
-    summary:
+    period: L("Oct 2019 — Dec 2020", "Okt 2019 — Des 2020"),
+    summary: L(
       "Designed admin dashboard UI, redesigned talentlytica.com, collaborated cross-functionally on flows and design insights, and prototyped VANIA (Virtual Assistant & Integration Assessment).",
+      "Merancang UI dashboard admin, meredesain talentlytica.com, berkolaborasi lintas tim untuk alur dan insight desain, serta memprototipe VANIA (Virtual Assistant & Integration Assessment).",
+    ),
   },
   {
-    role: "UI/UX Design",
+    role: L("UI/UX Design", "UI/UX Design"),
     org: "PT Gagas Daya Imaji",
     domain: "gagasimaji.com",
     badge: "gagas-daya-imaji",
-    period: "Sep 2018 — Aug 2019",
-    summary:
+    period: L("Sep 2018 — Aug 2019", "Sep 2018 — Agu 2019"),
+    summary: L(
       "User interface development for Mayora banking pages: designing screens, gathering insights, and helping communicate design decisions to the team.",
+      "Pengembangan antarmuka untuk halaman perbankan Mayora: merancang tampilan, menggali insight, dan membantu komunikasi keputusan desain ke tim.",
+    ),
   },
   {
-    role: "UI UX Engineer",
+    role: L("UI UX Engineer", "UI UX Engineer"),
     org: "PT NMx Indonesia",
     domain: "qiu.id",
     badge: "nmx-indonesia",
-    period: "Aug 2017 — Mar 2018",
-    summary:
+    period: L("Aug 2017 — Mar 2018", "Agu 2017 — Mar 2018"),
+    summary: L(
       "Designed QIU app UI for iOS and Android, UX analysis, test scenario and bug documentation, QIU website (HTML/CSS/JS), and admin panel with Vue.",
+      "Merancang UI aplikasi QIU di iOS dan Android, analisis UX, dokumentasi skenario uji dan bug, website QIU (HTML/CSS/JS), serta admin panel dengan Vue.",
+    ),
   },
   {
-    role: "Web Designer",
+    role: L("Web Designer", "Web Designer"),
     org: "UKMSISTEM",
     domain: "ukmsistem.id",
     badge: "ukmsistem",
-    period: "2016 — 2017",
-    summary:
+    period: L("2016 — 2017", "2016 — 2017"),
+    summary: L(
       "Designed ukmsistem.id, ERP app UI, business flows, and marketing kits for SMEs.",
+      "Merancang ukmsistem.id, UI aplikasi ERP, alur bisnis, dan marketing kit untuk UKM.",
+    ),
   },
 ];
 
-export const projects = [
+const projectsData = [
   {
     title: "PT Omnitera Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2026",
     url: "https://www.omnitera.co.id/",
     domain: "omnitera.co.id",
@@ -146,7 +187,7 @@ export const projects = [
   },
   {
     title: "PT Sonar Nusantara Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2026",
     url: "https://www.sonar-nusantara.co.id/",
     domain: "sonar-nusantara.co.id",
@@ -155,7 +196,7 @@ export const projects = [
   },
   {
     title: "PT ATS Subsea Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2026",
     url: "https://www.atssubsea.co.id/",
     domain: "atssubsea.co.id",
@@ -164,7 +205,7 @@ export const projects = [
   },
   {
     title: "PT Atlantis Subsea Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2021",
     url: "http://atlantissubsea.com/",
     domain: "atlantissubsea.com",
@@ -173,7 +214,7 @@ export const projects = [
   },
   {
     title: "PT Armada Gema Nusantara",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2022",
     url: "https://www.armadagemanusantara.co.id/",
     domain: "armadagemanusantara.co.id",
@@ -182,7 +223,7 @@ export const projects = [
   },
   {
     title: "PT Kompas Navigasi Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2021",
     domain: "kompasnavigasi.co.id",
     badge: "kompas-navigasi",
@@ -190,7 +231,7 @@ export const projects = [
   },
   {
     title: "PT Sonar Nusantara Indonesia v.1",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2021",
     domain: "sonar-nusantara.co.id",
     badge: "sonar-nusantara",
@@ -198,7 +239,7 @@ export const projects = [
   },
   {
     title: "PT Georama Karya Indonesia",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2021",
     domain: "georama.co.id",
     badge: "georama",
@@ -206,7 +247,7 @@ export const projects = [
   },
   {
     title: "PT Asia Sinergi Solusindo",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2023",
     url: "https://www.assindo.co.id/",
     domain: "assindo.co.id",
@@ -215,7 +256,7 @@ export const projects = [
   },
   {
     title: "PT Insan Teknologi Semesta",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2023",
     url: "https://its.co.id/",
     domain: "its.co.id",
@@ -224,7 +265,7 @@ export const projects = [
   },
   {
     title: "PT Karya Inovasi Sakti",
-    subtitle: "Web Company Profile",
+    subtitle: L("Web Company Profile", "Website Profil Perusahaan"),
     year: "2023",
     url: "https://www.karyainovasisakti.co.id/",
     domain: "karyainovasisakti.co.id",
@@ -233,7 +274,10 @@ export const projects = [
   },
   {
     title: "Bank Mayora",
-    subtitle: "UI / UX Design Mobile Banking Feat Gagas Daya Imaji",
+    subtitle: L(
+      "UI / UX Design Mobile Banking Feat Gagas Daya Imaji",
+      "Desain UI/UX Mobile Banking feat Gagas Daya Imaji",
+    ),
     year: "2020",
     domain: "bankmayora.com",
     badge: "bank-mayora",
@@ -241,7 +285,7 @@ export const projects = [
   },
   {
     title: "Local Sayur",
-    subtitle: "Design Icon",
+    subtitle: L("Design Icon", "Desain Ikon"),
     year: "2019",
     domain: "lokalsayur.com",
     badge: "lokal-sayur",
@@ -249,7 +293,7 @@ export const projects = [
   },
   {
     title: "Sakura Manggarai",
-    subtitle: "Design Mascot & Brand Guideline",
+    subtitle: L("Design Mascot & Brand Guideline", "Desain Maskot & Brand Guideline"),
     year: "2019",
     domain: "sakura-hotel.com",
     badge: "sakura-manggarai",
@@ -257,19 +301,31 @@ export const projects = [
   },
 ];
 
+export const projects = [...projectsData].sort(
+  (a, b) => Number(b.year) - Number(a.year),
+);
+
 export const skillsIntro = {
-  label: "skills",
-  heading: "What I work on day to day.",
-  graphHint: "A visual map of the tools, systems, and domains I work across.",
-  listHint: "A closer look at the areas I work across.",
+  label: L("skills", "keahlian"),
+  heading: L("What I work on day to day.", "Yang saya kerjakan sehari-hari."),
+  graphHint: L(
+    "A visual map of the tools, systems, and domains I work across.",
+    "Peta visual tools, sistem, dan domain yang saya kuasai.",
+  ),
+  listHint: L(
+    "A closer look at the areas I work across.",
+    "Ringkasan area keahlian yang saya garap.",
+  ),
 };
 
 export const skills = [
   {
-    group: "Product Management & Strategy",
+    group: L("Product Management & Strategy", "Product Management & Strategi"),
     graphLabel: "Product",
-    summary:
+    summary: L(
       "RICE, STP, cost-benefit analysis, end-to-end product strategy, discovery, and innovative HR solutions.",
+      "RICE, STP, analisis cost-benefit, strategi produk end-to-end, discovery, dan solusi HR inovatif.",
+    ),
     items: [
       "RICE",
       "STP",
@@ -280,37 +336,46 @@ export const skills = [
     ],
   },
   {
-    group: "AI & GenAI Engineering",
+    group: L("AI & GenAI Engineering", "AI & GenAI Engineering"),
     graphLabel: "GenAI",
-    summary:
+    summary: L(
       "Intelligent agents, agentic workflows, RAG, LLM, API integration, and advanced prompting.",
+      "Intelligent agents, agentic workflows, RAG, LLM, integrasi API, dan advanced prompting.",
+    ),
     items: ["LLM", "RAG", "AI agents", "Agentic workflows", "Prompting", "API"],
   },
   {
-    group: "Database & Knowledge Representation",
+    group: L("Database & Knowledge Representation", "Database & Knowledge Representation"),
     graphLabel: "Graph DB",
-    summary:
+    summary: L(
       "Graph databases, Neo4j, Cypher queries, GraphRAG, and knowledge graphs.",
+      "Graph database, Neo4j, query Cypher, GraphRAG, dan knowledge graph.",
+    ),
     items: ["Neo4j", "Cypher", "GraphRAG", "Knowledge graphs"],
   },
   {
-    group: "Full-Stack & Technical Building",
+    group: L("Full-Stack & Technical Building", "Full-Stack & Technical Building"),
     graphLabel: "Build",
-    summary: "Vercel, Supabase, n8n, Webflow, CMS, and domain management.",
+    summary: L(
+      "Vercel, Supabase, n8n, Webflow, CMS, and domain management.",
+      "Vercel, Supabase, n8n, Webflow, CMS, dan domain management.",
+    ),
     items: ["Vercel", "Supabase", "n8n", "Webflow", "Next.js"],
   },
   {
-    group: "Domain Expertise",
+    group: L("Domain Expertise", "Domain Expertise"),
     graphLabel: "Domain",
-    summary:
+    summary: L(
       "Deep experience in HR technology, assessment frameworks, and B2B markets.",
+      "Pengalaman mendalam di HR technology, assessment framework, dan pasar B2B.",
+    ),
     items: ["HR Tech", "Assessment Framework", "B2B Field"],
   },
 ];
 
 export const certificatesIntro = {
-  label: "certificates",
-  heading: "Learning I've completed.",
+  label: L("certificates", "sertifikat"),
+  heading: L("Learning I've completed.", "Belajar yang sudah saya selesaikan."),
 };
 
 export const certificates = [
@@ -353,8 +418,10 @@ export const certificates = [
     credentialId: "2024H2S02GENAI-E00148",
     credentialUrl: "https://www.linkedin.com/in/sanosempati/details/certifications/",
     skills: ["Artificial Intelligence (AI)", "GenAI"],
-    description:
+    description: L(
       "Achieved Top 59 in The Google Cloud GenAI Hackathon APAC Edition 2024. Represented Indonesia in the APAC-wide competition, presenting the idea 'AI Buddy,' an AI that actively listens, offers insightful advice, and empowers users (employees) to elevate their communication skills and overall effectiveness in their workplace.",
+      "Meraih Top 59 di Google Cloud GenAI Hackathon APAC Edition 2024. Mewakili Indonesia dalam kompetisi APAC, mempresentasikan ide 'AI Buddy'—AI yang mendengarkan, memberi saran, dan membantu pengguna (karyawan) meningkatkan komunikasi dan efektivitas di tempat kerja.",
+    ),
   },
   {
     title: "Product Discovery Micro-Certification (PDC)™️",
@@ -394,6 +461,9 @@ export const certificates = [
 ];
 
 export const contact = {
-  footerCta: "Want to chat, collaborate, or just say hi? Send a message.",
+  footerCta: L(
+    "Want to chat, collaborate, or just say hi? Send a message.",
+    "Mau ngobrol, kolaborasi, atau sekadar menyapa? Kirim pesan.",
+  ),
   whatsappIntro: "Hi Sano, I'd like to connect with you.",
 };

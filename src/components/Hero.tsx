@@ -1,14 +1,46 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, GlobeHemisphereEast, LinkedinLogo } from "@phosphor-icons/react";
 import { hero, site } from "@/lib/content";
 import { openWhatsApp } from "@/lib/whatsapp";
+import { BilingualText } from "./BilingualText";
+import { useLanguage } from "./LanguageProvider";
 import { PrimaryButton } from "./PrimaryButton";
 import { SectionShell } from "./SectionShell";
 
+function TalentlyticaLink({ children }: { children: ReactNode }) {
+  return (
+    <a
+      href={hero.companyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="box-decoration-clone rounded-[3px] bg-[#ff5b57]/20 px-1 py-0.5 font-semibold text-dh-dark underline decoration-[#ff5b57]/70 decoration-2 underline-offset-[3px] transition-colors hover:bg-[#ff5b57]/30 hover:text-dh-dark"
+    >
+      {children}
+    </a>
+  );
+}
+
+function renderBioWithCompany(text: string, keyPrefix: string) {
+  const parts = text.split(hero.company);
+  if (parts.length === 1) return text;
+
+  return parts.flatMap((part, index) => {
+    if (index === parts.length - 1) return [part];
+    return [
+      part,
+      <TalentlyticaLink key={`${keyPrefix}-${index}`}>{hero.company}</TalentlyticaLink>,
+    ];
+  });
+}
+
 export function Hero() {
+  const { t, locale } = useLanguage();
+  const bioText = t(hero.bio);
+
   return (
     <SectionShell
       id="top"
@@ -41,13 +73,27 @@ export function Hero() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-sm font-medium uppercase tracking-[0.08em] text-dh-medium">
-              {hero.role} · {hero.company}
+              {t(hero.role)} ·{" "}
+              <TalentlyticaLink>{hero.company}</TalentlyticaLink>
             </p>
             <h1 className="font-display mt-4 max-w-[12ch] text-[clamp(2.75rem,7vw,6.25rem)] font-medium leading-[0.95] tracking-[-0.04em] text-dh-dark">
               {site.name}
             </h1>
-            <p className="mt-6 max-w-[52ch] whitespace-pre-line text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-relaxed text-dh-medium">
-              {hero.bio}
+            <p
+              key={`bio-${locale}`}
+              className="mt-6 max-w-[52ch] whitespace-pre-line text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-relaxed text-dh-medium"
+            >
+              {bioText.split("\n\n").map((paragraph, index) => (
+                <span key={`${locale}-${index}`}>
+                  {index > 0 ? (
+                    <>
+                      <br />
+                      <br />
+                    </>
+                  ) : null}
+                  {renderBioWithCompany(paragraph, `${locale}-${index}`)}
+                </span>
+              ))}
             </p>
 
             <div className="mt-6 flex items-center gap-2 text-dh-dark/80">
@@ -63,7 +109,7 @@ export function Hero() {
                 variant="primary"
                 onClick={() => openWhatsApp()}
               >
-                {hero.cta}
+                {t(hero.cta)}
               </PrimaryButton>
               <a
                 href={site.linkedin}
@@ -72,7 +118,7 @@ export function Hero() {
                 className="btn-memphis btn-memphis--lg inline-flex items-center justify-center gap-2 rounded-[14px] border-[3px] border-solid border-[#17140d] bg-white px-8 py-3.5 text-[0.9375rem] font-medium tracking-tight text-[#17140d] transition-[transform,box-shadow] duration-150 ease-out md:px-10 md:py-4 md:text-base"
               >
                 <LinkedinLogo size={18} weight="bold" />
-                {hero.linkedinCta}
+                {t(hero.linkedinCta)}
                 <ArrowUpRight size={16} weight="bold" />
               </a>
             </div>
@@ -85,9 +131,9 @@ export function Hero() {
             transition={{ delay: 0.12, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           >
             {hero.facts.map((fact) => (
-              <div key={fact.label}>
+              <div key={fact.label.en}>
                 <dt className="text-xs font-medium uppercase tracking-[0.08em] text-dh-medium">
-                  {fact.label}
+                  <BilingualText value={fact.label} />
                 </dt>
                 <dd className="mt-1 text-sm font-medium text-dh-dark md:text-base">
                   {fact.value}

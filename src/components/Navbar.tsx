@@ -5,6 +5,8 @@ import { List, X } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hero, navLinks } from "@/lib/content";
+import { useLanguage } from "./LanguageProvider";
+import { LanguageSwitch } from "./LanguageSwitch";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { Logo } from "./Logo";
 import { PrimaryButton } from "./PrimaryButton";
@@ -12,6 +14,7 @@ import { PrimaryButton } from "./PrimaryButton";
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const { t, locale } = useLanguage();
 
   const circleRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const tlRefs = useRef<Array<gsap.core.Timeline | null>>([]);
@@ -155,7 +158,7 @@ export function Navbar() {
     }
 
     return () => window.removeEventListener("resize", layout);
-  }, [syncPillStates]);
+  }, [syncPillStates, locale]);
 
   useEffect(() => {
     syncPillStates();
@@ -237,13 +240,13 @@ export function Navbar() {
                   />
                   <span className="relative z-[2] inline-block overflow-hidden leading-none">
                     <span className="pill-label relative z-[2] inline-block">
-                      {link.label}
+                      {t(link.label)}
                     </span>
                     <span
                       className="pill-label-hover pointer-events-none absolute top-0 left-0 z-[3] inline-block w-full text-center text-white"
                       aria-hidden
                     >
-                      {link.label}
+                      {t(link.label)}
                     </span>
                   </span>
                 </button>
@@ -252,6 +255,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageSwitch className="hidden lg:inline-flex" />
             <PrimaryButton
               type="button"
               variant="nav"
@@ -259,7 +263,7 @@ export function Navbar() {
               onClick={() => openWhatsApp()}
               className="hidden lg:inline-flex"
             >
-              {hero.cta}
+              {t(hero.cta)}
             </PrimaryButton>
 
             <button
@@ -285,7 +289,9 @@ export function Navbar() {
           >
             <div className="mt-3 flex items-center justify-between rounded-full border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-xl">
               <Logo invert className="h-7 md:h-8" />
-              <button
+              <div className="flex items-center gap-2">
+                <LanguageSwitch />
+                <button
                 type="button"
                 className="inline-flex size-10 items-center justify-center rounded-full bg-white/10 text-white"
                 onClick={() => setMenuOpen(false)}
@@ -293,6 +299,7 @@ export function Navbar() {
               >
                 <X size={18} weight="bold" />
               </button>
+              </div>
             </div>
 
             <nav className="flex flex-1 flex-col justify-center gap-2">
@@ -316,7 +323,7 @@ export function Navbar() {
                       ease: [0.32, 0.72, 0, 1],
                     }}
                   >
-                    {link.label}
+                    {t(link.label)}
                   </motion.button>
                 );
               })}
@@ -338,7 +345,7 @@ export function Navbar() {
                   openWhatsApp();
                 }}
               >
-                {hero.cta}
+                {t(hero.cta)}
               </PrimaryButton>
             </motion.div>
           </motion.div>

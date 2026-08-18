@@ -4,9 +4,11 @@ import Image from "next/image";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { projects } from "@/lib/content";
+import { projects, projectsIntro, ui } from "@/lib/content";
+import { useLanguage } from "./LanguageProvider";
 import { ProjectLightboxHost } from "./ProjectLightbox";
 import { CompanyBadge } from "./CompanyBadge";
+import { BilingualText } from "./BilingualText";
 import { SectionLabel } from "./SectionLabel";
 import { SectionShell } from "./SectionShell";
 
@@ -15,6 +17,7 @@ const PAGE_SIZE = 6;
 export function Projects() {
   const [page, setPage] = useState(0);
   const [active, setActive] = useState<(typeof projects)[number] | null>(null);
+  const { t } = useLanguage();
 
   const totalPages = Math.ceil(projects.length / PAGE_SIZE);
   const visible = useMemo(
@@ -34,7 +37,7 @@ export function Projects() {
       joinBottom
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>projects</SectionLabel>
+      <SectionLabel bilingual={projectsIntro.label} />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -89,9 +92,11 @@ export function Projects() {
                     {project.year}
                   </span>
                 </div>
-                <p className="mt-1 text-sm font-medium text-dh-medium md:text-[0.9375rem]">
-                  {project.subtitle}
-                </p>
+                <BilingualText
+                  value={project.subtitle}
+                  as="p"
+                  className="mt-1 text-sm font-medium text-dh-medium md:text-[0.9375rem]"
+                />
                 {project.url ? (
                   <a
                     href={project.url}
@@ -100,7 +105,7 @@ export function Projects() {
                     className="mt-2 inline-flex text-sm font-medium text-dh-dark underline decoration-dh-dark/30 underline-offset-4 transition-colors hover:text-dh-medium hover:decoration-dh-medium"
                     onClick={(event) => event.stopPropagation()}
                   >
-                    Link
+                    {t(ui.link)}
                   </a>
                 ) : null}
               </div>
@@ -115,7 +120,7 @@ export function Projects() {
           aria-label="Projects pagination"
         >
           <p className="text-sm font-medium text-dh-medium">
-            Page {page + 1} of {totalPages}
+            {t(ui.page)} {page + 1} {t(ui.of)} {totalPages}
           </p>
           <div className="flex items-center gap-2">
             <button

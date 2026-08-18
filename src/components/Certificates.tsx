@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { certificates, certificatesIntro } from "@/lib/content";
-import { SectionLabel } from "./SectionLabel";
+import { BilingualText } from "./BilingualText";
+import { SectionHeading } from "./SectionHeading";
 import { SectionShell } from "./SectionShell";
 
 function ArrowIcon({ className = "" }: { className?: string }) {
@@ -27,10 +28,10 @@ export function Certificates() {
       tone="light"
       innerClassName="section-pad py-16 md:py-[clamp(5rem,8vw,8rem)]"
     >
-      <SectionLabel>{certificatesIntro.label}</SectionLabel>
-      <h2 className="font-display mt-2 max-w-2xl text-[clamp(1.5rem,2.6vw,2.75rem)] font-medium leading-[1.2] tracking-tight text-dh-dark">
-        {certificatesIntro.heading}
-      </h2>
+      <SectionHeading
+        label={certificatesIntro.label}
+        heading={certificatesIntro.heading}
+      />
 
       <div className="mt-10 md:mt-14">
         {certificates.map((item, index) => {
@@ -52,9 +53,11 @@ export function Certificates() {
                   {item.title}
                 </h3>
                 {item.description ? (
-                  <p className="mt-3 max-w-[62ch] text-[0.9375rem] font-medium leading-relaxed text-dh-medium md:text-base">
-                    {item.description}
-                  </p>
+                  <BilingualText
+                    value={item.description}
+                    as="p"
+                    className="mt-3 max-w-[62ch] text-[0.9375rem] font-medium leading-relaxed text-dh-medium md:text-base"
+                  />
                 ) : null}
                 {item.skills.length > 0 ? (
                   <ul className="mt-3 flex flex-wrap gap-2">

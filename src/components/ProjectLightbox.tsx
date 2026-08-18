@@ -4,7 +4,8 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { MagnifyingGlassMinus, MagnifyingGlassPlus, X } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { projects } from "@/lib/content";
+import { projects, ui } from "@/lib/content";
+import { useLanguage } from "./LanguageProvider";
 
 type Project = (typeof projects)[number];
 
@@ -27,6 +28,8 @@ export function ProjectLightbox({
     originX: number;
     originY: number;
   } | null>(null);
+
+  const { t } = useLanguage();
 
   const zoomBy = useCallback((delta: number) => {
     setScale((current) => {
@@ -101,7 +104,7 @@ export function ProjectLightbox({
         <div className="min-w-0">
           <p className="truncate font-display text-lg font-medium">{project.title}</p>
           <p className="truncate text-sm font-medium text-white/70">
-            {project.subtitle} · {project.year}
+            {t(project.subtitle)} · {project.year}
           </p>
           {project.url ? (
             <a
@@ -111,7 +114,7 @@ export function ProjectLightbox({
               className="mt-1 inline-flex text-sm font-medium text-white underline decoration-white/40 underline-offset-4 transition-colors hover:text-white/80"
               onClick={(event) => event.stopPropagation()}
             >
-              Link
+              {t(ui.link)}
             </a>
           ) : null}
         </div>
