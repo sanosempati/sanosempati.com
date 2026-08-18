@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { MagnifyingGlassMinus, MagnifyingGlassPlus, X } from "@phosphor-icons/react";
+import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { projects, ui } from "@/lib/content";
 import { useLanguage } from "./LanguageProvider";
 
@@ -30,6 +32,7 @@ export function ProjectLightbox({
   } | null>(null);
 
   const { t } = useLanguage();
+  const lenis = useLenis();
 
   const zoomBy = useCallback((delta: number) => {
     setScale((current) => {
@@ -42,6 +45,7 @@ export function ProjectLightbox({
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    lenis?.stop();
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -52,9 +56,10 @@ export function ProjectLightbox({
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
+      lenis?.start();
       window.removeEventListener("keydown", onKey);
     };
-  }, [onClose, zoomBy]);
+  }, [onClose, zoomBy, lenis]);
 
   const onWheel = (event: React.WheelEvent) => {
     event.preventDefault();
@@ -87,7 +92,8 @@ export function ProjectLightbox({
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex flex-col bg-black/80"
+      data-lenis-prevent
+      className="fixed inset-0 z-[80] flex flex-col bg-black/80"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -196,9 +202,18 @@ export function ProjectLightboxHost({
   project: Project | null;
   onClose: () => void;
 }) {
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {project ? <ProjectLightbox project={project} onClose={onClose} /> : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

@@ -16,7 +16,7 @@ import {
 import { select } from "d3-selection";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { skills } from "@/lib/content";
+import { relatedSkillGraphPairs, skills } from "@/lib/content";
 
 type NodeKind = "center" | "group" | "skill";
 
@@ -37,39 +37,24 @@ type ForceLink = SimulationLinkDatum<ForceNode> & {
   kind: "hub" | "leaf";
 };
 
-const VIEW_W = 1100;
-const VIEW_H = 720;
+const VIEW_W = 1180;
+const VIEW_H = 800;
 const CX = VIEW_W / 2;
 const CY = VIEW_H / 2;
-const GROUP_RADIUS = 158;
-const SKILL_RADIUS = 92;
+const GROUP_RADIUS = 188;
+const SKILL_RADIUS = 104;
 
 const GROUP_STYLE: Record<
   string,
   { fill: string; text: string; angle: number }
 > = {
   Product: { fill: "#12b3a4", text: "#ffffff", angle: -90 },
-  Build: { fill: "#fdc5c4", text: "#17140d", angle: 162 },
-  GenAI: { fill: "#8ac8ea", text: "#17140d", angle: 18 },
-  "Graph DB": { fill: "#b8e6c8", text: "#17140d", angle: 90 },
-  Domain: { fill: "#f5d0a9", text: "#17140d", angle: -162 },
+  GenAI: { fill: "#8ac8ea", text: "#17140d", angle: -30 },
+  "Graph DB": { fill: "#b8e6c8", text: "#17140d", angle: 30 },
+  Design: { fill: "#f7e38a", text: "#17140d", angle: 90 },
+  Build: { fill: "#fdc5c4", text: "#17140d", angle: 150 },
+  Domain: { fill: "#f5d0a9", text: "#17140d", angle: -150 },
 };
-
-const RELATED_SKILLS: [string, string][] = [
-  ["RAG", "GraphRAG"],
-  ["GraphRAG", "Neo4j"],
-  ["LLM", "RAG"],
-  ["AI agents", "Agentic workflows"],
-  ["AI agents", "n8n"],
-  ["Product discovery", "RAG"],
-  ["HR tech", "Product strategy"],
-  ["HR Tech", "Product discovery"],
-  ["Assessment Framework", "HR Tech"],
-  ["B2B Field", "Product strategy"],
-  ["Supabase", "Vercel"],
-  ["Prompting", "LLM"],
-  ["Cypher", "Neo4j"],
-];
 
 function toRad(deg: number) {
   return (deg * Math.PI) / 180;
@@ -155,18 +140,20 @@ function buildGraph() {
     });
     links.push({ source: "center", target: gid, kind: "hub" });
 
-    const count = cluster.items.length;
+    const graphItems = cluster.items.filter((item) => item.graphLabel);
+    const count = graphItems.length;
     const arc = Math.min(88, 16 * count + 10);
 
-    cluster.items.forEach((item, index) => {
+    graphItems.forEach((item, index) => {
+      const label = item.graphLabel ?? item.id;
       const orbitAngle =
         style.angle - arc / 2 + ((index + 0.5) / count) * arc;
       const pos = polar(groupPos.x, groupPos.y, SKILL_RADIUS, orbitAngle);
-      const size = nodeSize(item, "skill");
+      const size = nodeSize(label, "skill");
 
       nodes.push({
-        id: skillId(item),
-        label: item,
+        id: skillId(item.id),
+        label,
         kind: "skill",
         group: graphKey,
         x: pos.x,
@@ -177,7 +164,7 @@ function buildGraph() {
         halfH: size.halfH,
         angle: orbitAngle,
       });
-      links.push({ source: gid, target: skillId(item), kind: "leaf" });
+      links.push({ source: gid, target: skillId(item.id), kind: "leaf" });
     });
   });
 
@@ -225,7 +212,7 @@ function neighborsOf(id: string, links: ForceLink[]) {
     if (source === id) related.add(target);
     if (target === id) related.add(source);
   });
-  RELATED_SKILLS.forEach(([a, b]) => {
+  relatedSkillGraphPairs.forEach(([a, b]) => {
     const aId = skillId(a);
     const bId = skillId(b);
     if (id === aId) related.add(bId);
@@ -457,7 +444,7 @@ export function SkillsGraph() {
   if (!mounted) {
     return (
       <div
-        className="min-h-[30rem] overflow-hidden rounded-[14px] border-[3px] border-[#17140d] bg-[#fcf9f7] shadow-[8px_8px_0_#17140d] md:min-h-[38rem]"
+        className="min-h-[32rem] overflow-hidden rounded-[14px] border-[3px] border-[#17140d] bg-[#fcf9f7] shadow-[8px_8px_0_#17140d] md:min-h-[42rem]"
         aria-hidden
       />
     );
@@ -468,15 +455,15 @@ export function SkillsGraph() {
   const nodeMap = new Map(nodes.map((node) => [node.id, node]));
 
   const relatedPairs = focus
-    ? RELATED_SKILLS.map(([a, b]) => ({
-        a: nodeMap.get(skillId(a)),
-        b: nodeMap.get(skillId(b)),
-      })).filter(
-        (pair): pair is { a: ForceNode; b: ForceNode } =>
-          Boolean(pair.a && pair.b) &&
-          focus.has(pair.a!.id) &&
-          focus.has(pair.b!.id),
-      )
+    ? relatedSkillGraphPairs
+        .map(([a, b]) => ({
+          a: nodeMap.get(skillId(a)),
+          b: nodeMap.get(skillId(b)),
+        }))
+        .filter((pair): pair is { a: ForceNode; b: ForceNode } => {
+          const { a, b } = pair;
+          return Boolean(a && b && focus.has(a.id) && focus.has(b.id));
+        })
     : [];
 
   return (
@@ -488,7 +475,7 @@ export function SkillsGraph() {
       <svg
         ref={svgRef}
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-        className="h-auto w-full min-h-[30rem] md:min-h-[38rem]"
+        className="h-auto w-full min-h-[32rem] md:min-h-[42rem]"
         role="img"
         aria-label="Sano Sempati skills map"
       >

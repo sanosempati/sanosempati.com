@@ -12,11 +12,19 @@ import { SkillsGraph } from "./SkillsGraph";
 
 type SkillView = "graph" | "list";
 
-function SkillsList() {
-  const { t } = useLanguage();
+const CERT_CHIP: Record<string, string> = {
+  "Neo4j & GenerativeAI Fundamentals": "Neo4j GenAI",
+  "Neo4j Fundamentals": "Neo4j",
+  "Google Cloud GenAI Hackathon APAC Edition 2024": "GenAI Hackathon APAC",
+  "Build and Deploy an Agent with Reasoning Engine in Vertex AI":
+    "Vertex AI Agent",
+  "Product Discovery Workshop": "Discovery Workshop",
+  "Product Discovery Micro-Certification (PDC)™️": "PDC",
+};
 
+function SkillsList() {
   return (
-    <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 md:gap-12">
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 xl:grid-cols-3">
       {skills.map((group, index) => (
         <motion.article
           key={group.group.en}
@@ -40,11 +48,24 @@ function SkillsList() {
           />
           <ul className="mt-4 divide-y divide-dh-dark/15 border-t border-dh-dark/15">
             {group.items.map((item) => (
-              <li
-                key={item}
-                className="py-3 text-[0.9375rem] font-medium text-dh-dark md:text-base"
-              >
-                {item}
+              <li key={item.id} className="py-3">
+                <BilingualText
+                  value={item.label}
+                  as="p"
+                  className="text-[0.9375rem] font-medium text-dh-dark md:text-base"
+                />
+                {item.relatedCertificates?.length ? (
+                  <ul className="mt-2 flex flex-wrap gap-1.5">
+                    {item.relatedCertificates.map((cert) => (
+                      <li
+                        key={cert}
+                        className="rounded-full border border-dh-dark/15 bg-white px-2.5 py-0.5 text-[11px] font-medium text-dh-medium"
+                      >
+                        {CERT_CHIP[cert] ?? cert}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>
