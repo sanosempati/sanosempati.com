@@ -8,7 +8,7 @@ export const site = {
     "Product Manager at Talentlytica. Building HR assessment products with data, design, and GenAI — LLM, RAG, and GraphRAG.",
   location: "Lombok, Indonesia",
   email: "sanosempati@gmail.com",
-  phone: "+62 877 7566 7704",
+  phone: "+62 851 5543 6708",
   instagram: "https://www.instagram.com/sanosempati/",
   linkedin: "https://www.linkedin.com/in/sanosempati",
   year: 2026,
@@ -130,7 +130,7 @@ export const experience = [
     ),
   },
   {
-    role: L("UX Designer", "UX Designer"),
+    role: L("UI UX Designer", "UI UX Designer"),
     org: "Talentlytica",
     domain: "talentlytica.com",
     badge: "talentlytica",
