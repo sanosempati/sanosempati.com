@@ -35,13 +35,23 @@ export const navLinks: { href: string; label: Bilingual }[] = [
   { href: "#sertifikat", label: L("Certificates", "Sertifikat") },
 ];
 
+/** Product Manager role at Talentlytica, used to compute the live "X+" years copy. */
+export const productManagerStart = { year: 2021, month: 1 } as const;
+
+export function yearsAsProductManager(now = new Date()) {
+  const startMonthIndex = productManagerStart.month - 1;
+  let years = now.getFullYear() - productManagerStart.year;
+  if (now.getMonth() < startMonthIndex) years -= 1;
+  return Math.max(1, years);
+}
+
 export const hero = {
   role: L("Product Manager", "Product Manager"),
   company: "Talentlytica",
   companyUrl: "http://talentlytica.com/",
   bio: L(
-    "Hi, I'm Sano.\n\nFor 6+ years, I’ve been working remotely as a Product Manager at Talentlytica, helping companies make strategic talent decisions through data, analytics, and technology.\n\nPassionate about AI, Design Interaction, and Modern Tech, I constantly apply cutting-edge tools to real-world workflows. Beyond my main role, I collaborate with businesses on side projects—building high-converting company profile websites, hosting practical AI & product workshops, and helping teams innovate and scale faster.",
-    "Hai, saya Sano.\n\nSelama 6+ tahun, saya bekerja remote sebagai Product Manager di Talentlytica, membantu perusahaan mengambil keputusan talenta strategis lewat data, analitik, dan teknologi.\n\nBersemangat pada AI, Design Interaction, dan Modern Tech, saya terus menerapkan tools mutakhir ke workflow nyata. Di luar peran utama, saya kolaborasi dengan bisnis untuk side project—membangun website company profile, mengadakan workshop AI & product, dan membantu tim berinovasi lebih cepat.",
+    "Hi, I'm Sano.\n\nFor {years}+ years, I’ve been working remotely as a Product Manager at Talentlytica, helping companies make strategic talent decisions through data, analytics, and technology.\n\nPassionate about AI, Design Interaction, and Modern Tech, I constantly apply cutting-edge tools to real-world workflows. Beyond my main role, I collaborate with businesses on side projects—building high-converting company profile websites, hosting practical AI & product workshops, and helping teams innovate and scale faster.",
+    "Hai, saya Sano.\n\nSelama {years}+ tahun, saya bekerja remote sebagai Product Manager di Talentlytica, membantu perusahaan mengambil keputusan talenta strategis lewat data, analitik, dan teknologi.\n\nBersemangat pada AI, Design Interaction, dan Modern Tech, saya terus menerapkan tools mutakhir ke workflow nyata. Di luar peran utama, saya kolaborasi dengan bisnis untuk side project—membangun website company profile, mengadakan workshop AI & product, dan membantu tim berinovasi lebih cepat.",
   ),
   cta: L("Get in touch", "Hubungi saya"),
   linkedinCta: L("View LinkedIn", "Lihat LinkedIn"),

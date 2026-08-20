@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, GlobeHemisphereEast, LinkedinLogo } from "@phosphor-icons/react";
-import { hero, site } from "@/lib/content";
+import { hero, site, yearsAsProductManager } from "@/lib/content";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { BilingualText } from "./BilingualText";
 import { useLanguage } from "./LanguageProvider";
@@ -39,7 +39,10 @@ function renderBioWithCompany(text: string, keyPrefix: string) {
 
 export function Hero() {
   const { t, locale } = useLanguage();
-  const bioText = t(hero.bio);
+  const bioText = t(hero.bio).replaceAll(
+    "{years}",
+    String(yearsAsProductManager()),
+  );
 
   return (
     <SectionShell
